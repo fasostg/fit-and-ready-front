@@ -2,6 +2,8 @@
 
 @theme {
     --font-display: 'Roboto', sans-serif;
+
+    --light-500: #000000;
 }
 
 .modal-overlay {
@@ -88,4 +90,47 @@
 .modal-overlay .modal-body .btn-secondary:hover {
     background-color: lightblue;
     transform: scale(1);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+.container button {
+  background-color: blue;
+  color: white;
+  font-weight: bold;
+  position: fixed;
+  bottom: 160px;
+  right: 160px;
+  border-radius: 8px;
+  transition: all 0.1s linear 0.1s;
+}
+
+.container button:hover {
+  background-color: darkblue;
+  box-shadow: 0 4px 12px 0px rgba(0, 0, 0, 0.2);
+  transform: scale(1.1);
+}
+
+.btn-primary {
+  background-color: blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 40px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
 }

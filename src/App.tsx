@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { CardReceita } from './components/card-receita/card-receita';
 import { ModalRealizarCheckin } from './components/modal-realizar-checkin/modal-realizar-checkin';
 import { Checkin } from './components/checkin/checkin';
+import { Header } from './components/header/header';
 
 function App() {
   const data: IReceita[] = useReceita().data || [];
@@ -14,9 +15,9 @@ function App() {
 
   //MOCKS
   const [checkins, setCheckins] = useState([
-    { id: 1, treino: 'Treino A', date: '2024-06-01', weight: 70 },
-    { id: 2, treino: 'Treino B', date: '2024-06-08', weight: 69.5 },
-    { id: 3, treino: 'Treino C', date: '2024-06-15', weight: 69  },
+    { id: 1, treino: 'Treino A', data: '2024-06-01', peso: 70 },
+    { id: 2, treino: 'Treino B', data: '2024-06-08', peso: 69.5 },
+    { id: 3, treino: 'Treino C', data: '2024-06-15', peso: 69  },
   ])
 
   const handleOpenModalReceita = () => {
@@ -28,9 +29,9 @@ function App() {
   }
 
   return (
-    <div className="w-screen h-screen bg-slate-100 ">
-      <div className="bg-slate-500 flex justify-center items-center font-display">
-        <h1 className="text-slate-800 text-3xl text-center font-bold">Fit & Ready</h1>
+    <div className="w-screen h-screen bg-slate-100 font-display">
+      <div className="h-20 flex justify-center items-center border-b border-slate-300 shadow-md shadow-slate-200">
+        <Header />
       </div>
 
       <div className="mt-5 flex justify-center items-center font-display">

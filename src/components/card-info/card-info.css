@@ -1,0 +1,34 @@
+.card-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 16rem;
+    height: 13rem;
+    padding: 1rem;
+    background-color: #FEFEFE;
+}
+
+.card-info .card-icon {
+    width: 4.5rem;
+    height: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.card-info .card-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.card-info .card-value {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: blue;
+    margin-top: 1rem;
+}
+
+.card-info .card-value-unit {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: black;
+}

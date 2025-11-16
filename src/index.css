@@ -23,9 +23,9 @@
 .modal-overlay .modal-header {
     background-color: #2A34FF;
     color: #FAFAFA;
-    padding: 24px;
+    padding: 2rem;
     width: 60%;
-    height: 8%;
+    height: 6%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -34,7 +34,7 @@
 
 .modal-overlay .modal-body {
     background-color: #FAFAFA;
-    padding: 24px;
+    padding: 2rem;
     width: 60%;
     min-height: 40%;
     display: flex;
@@ -45,21 +45,26 @@
 
 .modal-overlay .modal-footer {
     background-color: #FAFAFA;
+    padding: 2rem;
     width: 60%;
     height: 8%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: end;
     border-radius: 0 0 10px 10px;
 }
 
 .modal-overlay .modal-header h2 {
-    font-size: 24px;
-    font-weight: 600;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 .modal-overlay .modal-body .input-container {
     width: calc(100% - 24px)
+}
+
+.modal-overlay .modal-body .input-container .input-container-label {
+    font-weight: 400 !important;
 }
 
 .modal-overlay .modal-body input {
@@ -67,7 +72,7 @@
     border: 2px solid #ccc;
     color: black;
     font-size: 18px;
-    line-height: 24px;
+    line-height: 20px;
     border-radius: 12px;
     width: 100%;
     margin-bottom: 12px;
@@ -102,12 +107,12 @@
 
 .card-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 16px;
 }
 
 .container button {
-  background-color: blue;
+  background-color: #2A34FF;
   color: white;
   font-weight: bold;
   position: fixed;
@@ -124,13 +129,28 @@
 }
 
 .btn-primary {
-  background-color: blue;
+  background-color: #2A34FF;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100px;
-  height: 40px;
+  width: auto;
+  height: auto;
+  padding: 0.5rem 1rem;
   border-radius: 8px;
   color: white;
+  font-weight: bold;
+}
+
+.btn-secondary {
+  background-color: #fafafa;
+  color: #2A34FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  padding: 0.5rem 1rem;
+  border: 2px solid #2A34FF;
+  border-radius: 8px;
   font-weight: bold;
 }

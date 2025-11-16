@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useReceitaMutate } from "../../hooks/useReceitaMutate";
 import type { IReceita } from "../../interface/IReceita";
 
-import "./modal-create-receita.css"
+import "./modal-criar-receita.css"
 
 interface InputProps {
     label: string,
@@ -23,7 +23,7 @@ interface ModalCreateReceitaProps {
     closeModal(): void
 }
 
-export function ModalCreateReceita({ closeModal }: ModalCreateReceitaProps) {
+export function ModalCriarReceita({ closeModal }: ModalCreateReceitaProps) {
     const [nome, setNome] = useState("");
     const [ingredientes, setIngredientes] = useState("");
     const [modoPreparo, setModoPreparo] = useState("");

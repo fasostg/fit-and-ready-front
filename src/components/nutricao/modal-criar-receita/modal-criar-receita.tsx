@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useReceitaMutate } from "../../hooks/useReceitaMutate";
-import type { IReceita } from "../../interface/IReceita";
+import { useReceitaMutate } from "../../../hooks/useReceitaMutate";
+import type { IReceita } from "../../../interface/IReceita";
 
 import "./modal-criar-receita.css"
 

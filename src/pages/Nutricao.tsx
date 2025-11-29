@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useReceita } from "../hooks/useReceita";
 import type { IReceita } from "../interface/IReceita";
-import { CardInfo } from "../components/card-info/card-info";
-import { CardReceita } from "../components/card-receita/card-receita";
-import { ModalCriarReceita } from "../components/modal-criar-receita/modal-criar-receita";
+import { CardInfo } from "../components/inicio/card-info/card-info";
+import { CardReceita } from "../components/nutricao/card-receita/card-receita";
+import { ModalCriarReceita } from "../components/nutricao/modal-criar-receita/modal-criar-receita";
 
 
 export function Nutricao() {

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { CardInfo } from "../components/card-info/card-info";
-import { Checkin } from "../components/checkin/checkin";
-import { ModalRealizarCheckin } from "../components/modal-realizar-checkin/modal-realizar-checkin";
+import { CardInfo } from "../components/inicio/card-info/card-info";
+import { Checkin } from "../components/inicio/checkin/checkin";
+import { ModalRealizarCheckin } from "../components/inicio/modal-realizar-checkin/modal-realizar-checkin";
 import { useCheckin } from "../hooks/useCheckin";
 import type { ICheckin } from "../interface/ICheckin";
 

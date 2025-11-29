@@ -15,11 +15,11 @@ export function Header() {
                     <img src={logo} className='w-25 mr-4'></img>
                 </Link>
             </div>
-            <div className="header-menu" onClick={() => setMenuOpen(!menuOpen)}>
+            {/* <div className="header-menu" onClick={() => setMenuOpen(!menuOpen)}>
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </div> */}
             <div className="w-3/5 flex justify-end items-end">
                 <nav className={menuOpen ? "header-menu-open" : ""}>
                     <ul className="header-list flex justify-between items-center mr-15">

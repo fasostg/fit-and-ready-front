@@ -2,7 +2,7 @@ import './App.css';
 
 import { Route, Routes } from 'react-router-dom';
 
-import { Header } from './components/header/header';
+import { Header } from './components/shared/header/header';
 import { Historico } from './pages/Historico';
 import { Inicio } from './pages/Inicio';
 import { Nutricao } from './pages/Nutricao';

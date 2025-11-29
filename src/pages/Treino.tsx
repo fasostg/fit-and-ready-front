@@ -1,12 +1,34 @@
 import { useState } from "react";
-import { CardTreino } from "../components/card-treino/card-treino";
-import { ModalCriarTreino } from "../components/modal-criar-treino/modal-criar-treino";
+import { CardTreino } from "../components/treino/card-treino/card-treino";
+import { ModalCriarTreino } from "../components/treino/modal-criar-treino/modal-criar-treino";
+import { useGruposMusculares, useTiposExercicios, useTiposTreino, useTreino } from "../hooks/useTreino";
+import type { IGrupoMuscular } from "../interface/IGrupoMuscular";
+import type { ITipoExercicio } from "../interface/ITipoExercicio";
+import type { ITipoTreino } from "../interface/ITipoTreino";
+import type { ITreino } from "../interface/ITreino";
 
 
 export function Treino() {
     const [isModalAddTreinoOpen, setIsModalAddTreinoOpen] = useState(false);
 
+    const treinos: ITreino[] = useTreino().data || [];
+    const treinosAtivos: ITreino[] = treinos.filter(treino => treino.dataFim == null);
+    const treinosInativos: ITreino[] = treinos.filter(treino => treino.dataFim != null);
+
+    const tiposTreinoData: ITipoTreino[] = useTiposTreino().data || [];
+    const gruposMuscularesData: IGrupoMuscular[] = useGruposMusculares().data || [];
+    const tiposExerciciosData: ITipoExercicio[] = useTiposExercicios().data || [];
+    console.log(gruposMuscularesData)
+
     const handleOpenModalAddTreino = () => {
+        setIsModalAddTreinoOpen(prev => !prev);
+    }
+
+    const handleOpenModalDeleteTreino = () => {
+        setIsModalAddTreinoOpen(prev => !prev);
+    }
+
+    const handleOpenModalUpdateTreino = () => {
         setIsModalAddTreinoOpen(prev => !prev);
     }
 
@@ -19,23 +41,19 @@ export function Treino() {
                     <button onClick={handleOpenModalAddTreino} className=" btn-primary">Adicionar Treino</button>
                 </div>
                 <div className="card-grid">
-                    <CardTreino tipo={"Treino"} valor={300} isAtivo={true} />                   
-                    <CardTreino tipo={"Treino"} valor={300} isAtivo={true} />                   
-                    <CardTreino tipo={"Treino"} valor={300} isAtivo={true} />                   
-                    <CardTreino tipo={"Treino"} valor={300} isAtivo={true} />
+                    { treinosAtivos.map(treino => <CardTreino treino={treino} />) }
                 </div>
             </div>
             <div className="mb-20 flex flex-col justify-center items-center">
-                <h5>Treinos anteriores</h5>
+                <div className="w-full flex justify-between items-end mb-5">
+                    <h5 className="font-bold text-xl">Treinos anteriores</h5>
+                </div>
                 <div className="card-grid">
-                    <CardTreino tipo={"Treino"} valor={300} isAtivo={false} />                   
-                    <CardTreino tipo={"Treino"} valor={300} isAtivo={false} />                   
-                    <CardTreino tipo={"Treino"} valor={300} isAtivo={false} />                   
-                    <CardTreino tipo={"Treino"} valor={300} isAtivo={false} /> 
+                    { treinosInativos.map(treino => <CardTreino treino={treino} />) }
                 </div>
             </div>
 
-            {isModalAddTreinoOpen && <ModalCriarTreino closeModal={handleOpenModalAddTreino}/>}
+            {isModalAddTreinoOpen && <ModalCriarTreino tiposTreino={tiposTreinoData} gruposMusculares={gruposMuscularesData} tiposExercicios={tiposExerciciosData} closeModal={handleOpenModalAddTreino}/>}
         </div>
     )
 }

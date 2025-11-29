@@ -1,7 +1,7 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { useCheckinMutate } from "../../hooks/useCheckinMutate";
+import { useCheckinMutate } from "../../../hooks/useCheckinMutate";
 
 interface InputProps {
     label: string,

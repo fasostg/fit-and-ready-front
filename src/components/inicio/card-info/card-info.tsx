@@ -1,4 +1,4 @@
-import logo from '../../assets/logo-text.png';
+import logo from '../../../assets/logo-text.png';
 import "./card-info.css";
 
 interface CardInfoProps {

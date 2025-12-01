@@ -10,7 +10,7 @@ import "./modal-criar-treino.css";
 import type { ITreino } from "../../../interface/ITreino";
 import type { ITipoTreino } from "../../../interface/ITipoTreino";
 import type { IExercicio } from "../../../interface/IExercicio";
-import { useTreinoMutate } from "../../../hooks/useTreinoMutate";
+import { useTreinoMutate, useTreinoUpdate } from "../../../hooks/useTreinoMutate";
 
 export interface ExercicioProps {
     id: number,
@@ -21,13 +21,14 @@ export interface ExercicioProps {
 }
 
 interface ModalCriarTreinoProps {
+    treino?: ITreino,
     tiposTreino: ITipoTreino[],
     gruposMusculares: IGrupoMuscular[],
     tiposExercicios: ITipoExercicio[],
     closeModal(): void;
 }
 
-export function ModalCriarTreino({ tiposTreino, gruposMusculares, tiposExercicios, closeModal }: ModalCriarTreinoProps) {
+export function ModalCriarTreino({ treino, tiposTreino, gruposMusculares, tiposExercicios, closeModal }: ModalCriarTreinoProps) {
     const [nomeTreino, setNomeTreino] = useState("");
     const [tipoTreino, setTipoTreino] = useState(tiposTreino[0].nome);
     const [dataInicio, setDataInicio] = useState("");
@@ -37,9 +38,9 @@ export function ModalCriarTreino({ tiposTreino, gruposMusculares, tiposExercicio
     const [tipoExercicio, setTipoExercicio] = useState(tiposExercicios[0].nome);
     const [numeroSeries, setNumeroSeries] = useState(0);
     const [numeroRepeticoes, setNumeroRepeticoes] = useState(0);
-
     
     const {mutate, isSuccess, isPending} = useTreinoMutate()
+    const {mutateUpdate, isSuccess, isPending} = useTreinoUpdate()
     
     const getTiposExerciciosByGrupo = (nomeGrupoMuscular: string) => {
         return tiposExercicios.filter(tipo => tipo.grupoMuscular.nome == nomeGrupoMuscular);
@@ -120,8 +121,6 @@ export function ModalCriarTreino({ tiposTreino, gruposMusculares, tiposExercicio
     const montarExercicio = (exercicio: ExercicioProps) => {
         const idTipoExercicio: number | undefined = tiposExercicios.find(tipo => tipo.nome === exercicio.tipoExercicio)?.id
         const idGrupoMuscular: number | undefined = gruposMusculares.find(grupo => grupo.nome === exercicio.grupoMuscular)?.id
-        console.log("idTipoExercicio => " + idTipoExercicio)
-        console.log("idGrupoMuscular => " + idGrupoMuscular)
 
         if (idTipoExercicio === undefined || idGrupoMuscular === undefined) {
             throw new Error(`Exercício inválido: ${exercicio.tipoExercicio}`);

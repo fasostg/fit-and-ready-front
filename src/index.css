@@ -147,9 +147,14 @@
   width: auto;
   height: auto;
   padding: 0.5rem 1rem;
+  border: 1px solid #2A34FF;
   border-radius: 8px;
   color: white;
   font-weight: bold;
+}
+
+.btn-primary:hover {
+  background-color: #1e26c4;
 }
 
 .btn-secondary {
@@ -161,7 +166,11 @@
   width: auto;
   height: auto;
   padding: 0.5rem 1rem;
-  border: 2px solid #2A34FF;
+  border: 1px solid #2A34FF;
   border-radius: 8px;
   font-weight: bold;
+}
+
+.btn-secondary:hover {
+  background-color: #f0f0f0;
 }

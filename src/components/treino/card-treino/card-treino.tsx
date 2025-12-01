@@ -1,15 +1,23 @@
-import logo from '../../assets/logo-text.png';
+import logo from '../../../assets/logo-text.png';
 import "./card-treino.css";
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ButtonCircle } from '../../shared/button-circle/button-circle';
 import type { ITreino } from '../../../interface/ITreino';
 import { useState } from 'react';
+import { ModalDeletarTreino } from '../modal-deletar-treino/modal-deletar-treino';
+import { ModalCriarTreino } from '../modal-criar-treino/modal-criar-treino';
+import type { ITipoTreino } from '../../../interface/ITipoTreino';
+import type { IGrupoMuscular } from '../../../interface/IGrupoMuscular';
+import type { ITipoExercicio } from '../../../interface/ITipoExercicio';
 
 interface CardTreinoProps {
     treino: ITreino,
+    tiposTreino: ITipoTreino[],
+    gruposMusculares: IGrupoMuscular[],
+    tiposExercicios: ITipoExercicio[],
 }
 
-export function CardTreino({ treino }: CardTreinoProps) {
+export function CardTreino({ treino, tiposTreino, gruposMusculares, tiposExercicios }: CardTreinoProps) {
     const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
     const [isModalEditOpen, setIsModalEditOpen] = useState(false);
 
@@ -42,8 +50,8 @@ export function CardTreino({ treino }: CardTreinoProps) {
                 </div>
             </div>
 
-            {isModalDeleteOpen && <ModalDeleteTreino treino={treino} closeModal={() => setIsModalDeleteOpen(false)}/>}
-            {isModalEditOpen && <ModalEditarTreino treino={treino} closeModal={() => setIsModalEditOpen(false)}/>}
+            {isModalEditOpen && <ModalCriarTreino treino={treino} tiposTreino={tiposTreino} gruposMusculares={gruposMusculares} tiposExercicios={tiposExercicios} closeModal={handleEditTreino}/>}
+            {isModalDeleteOpen && <ModalDeletarTreino idTreino={treino.id} closeModal={handleDeleteTreino}/>}
         </>
 
     )

@@ -2,3 +2,8 @@
     width: 16%;
     height: 2.5rem;
 }
+
+.modal-overlay .modal-body-small {
+    min-height: 10% !important;
+    height: 10rem !important;
+}

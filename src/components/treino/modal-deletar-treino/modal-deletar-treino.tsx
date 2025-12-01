@@ -1,25 +1,22 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import "./modal-criar-treino.css";
-import type { ITreino } from "../../../interface/ITreino";
-import type { IExercicio } from "../../../interface/IExercicio";
-import { useTreinoMutate } from "../../../hooks/useTreinoMutate";
+import "./modal-deletar-treino.css";
+import { useTreinoDelete } from "../../../hooks/useTreinoMutate";
 
 interface ModalDeletarTreinoProps {
-    idTreino: number,
+    idTreino?: number,
     closeModal(): void;
 }
 
-export function ModalCriarTreino({ idTreino, closeModal }: ModalDeletarTreinoProps) {
-    const {mutate, isSuccess, isPending} = useTreinoMutate()
+export function ModalDeletarTreino({ idTreino, closeModal }: ModalDeletarTreinoProps) {
+    const {mutate, isSuccess, isPending} = useTreinoDelete()
     
     const submit = () => {
         try {
-            mutate(treino)
-            // closeModal();
+            mutate(idTreino)
+            closeModal();
         } catch (error) {
-            alert("Erro ao processar exercícios: " + (error instanceof Error ? error.message : "Desconhecido"));
+            alert("Erro ao deletar treino: " + (error instanceof Error ? error.message : "Desconhecido"));
         }
     }
 
@@ -28,11 +25,11 @@ export function ModalCriarTreino({ idTreino, closeModal }: ModalDeletarTreinoPro
     return (
         <div className="modal-overlay">
             <div className="modal-header">
-                <h2>Criar Treino</h2>
-                <FontAwesomeIcon icon={faXmark} onClick={closeModal}/>
+                <h2>Exluir Treino</h2>
+                <FontAwesomeIcon icon={faXmark} onClick={closeModal} className="cursor-pointer hover:opacity-50"/>
             </div>
-            <div className="modal-body">
-                <h5 className="font-bold text-xl">Treino</h5>
+            <div className="modal-body-small">
+                <h3 className="font-light text-xl">Você deseja realmente excluir o treino?</h3>
                 
             </div>
             <div className="modal-footer gap-2">

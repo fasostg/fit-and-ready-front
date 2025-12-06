@@ -101,6 +101,13 @@ export function ModalRealizarCheckin({ treinos, closeModal }: ModalRealizarCheck
                     </div>
                 </form>
 
+                <h5 className="font-medium text-xl mt-6">Exercícios</h5>
+                {exercicios.map(exercicio => 
+                    <div>
+                        <p>{exercicio.tipoExercicio.nome}</p>
+
+                    </div>
+                )}
                 <ExerciciosTable data={recuperarExercicios(exercicios)}/>
             </div>
             <div className="modal-footer gap-2">

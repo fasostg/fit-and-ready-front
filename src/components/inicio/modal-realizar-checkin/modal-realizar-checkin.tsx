@@ -105,6 +105,7 @@ export function ModalRealizarCheckin({ treinos, closeModal }: ModalRealizarCheck
                 {exercicios.map(exercicio => 
                     <div>
                         <p>{exercicio.tipoExercicio.nome}</p>
+                        <p></p>
 
                     </div>
                 )}

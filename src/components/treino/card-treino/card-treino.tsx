@@ -53,6 +53,5 @@ export function CardTreino({ treino, tiposTreino, gruposMusculares, tiposExercic
             {isModalEditOpen && <ModalCriarTreino treino={treino} tiposTreino={tiposTreino} gruposMusculares={gruposMusculares} tiposExercicios={tiposExercicios} closeModal={handleEditTreino}/>}
             {isModalDeleteOpen && <ModalDeletarTreino idTreino={treino.id} closeModal={handleDeleteTreino}/>}
         </>
-
     )
 }

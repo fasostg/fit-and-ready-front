@@ -1,5 +1,3 @@
-import "./input.css";
-
 interface InputProps {
     label: string,
     value: string | number,

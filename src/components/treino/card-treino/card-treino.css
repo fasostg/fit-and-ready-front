@@ -1,8 +1,8 @@
 .card-info {
     display: flex;
     flex-direction: column;
-    width: 18rem;
-    height: 18rem;
+    width: 20rem;
+    height: auto;
     padding: 1rem;
     background-color: #FEFEFE;
 }

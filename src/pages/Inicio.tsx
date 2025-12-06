@@ -4,9 +4,12 @@ import { Checkin } from "../components/inicio/checkin/checkin";
 import { ModalRealizarCheckin } from "../components/inicio/modal-realizar-checkin/modal-realizar-checkin";
 import { useCheckin } from "../hooks/useCheckin";
 import type { ICheckin } from "../interface/ICheckin";
+import type { ITreino } from "../interface/ITreino";
+import { useTreino } from "../hooks/useTreino";
 
 
 export function Inicio() {
+    const treinos: ITreino[] = useTreino().data?.filter(treino => treino.dataFim == null) || [];
     const [isModalCheckinOpen, setIsModalCheckinOpen]= useState(false);
 
     //MOCKS CHECKIN
@@ -70,13 +73,8 @@ export function Inicio() {
                 <div className="flex justify-center items-center font-display">
                     <Checkin checkins={checkinData}></Checkin>
                 </div>
-
-                <div className="flex justify-around col gap-4 mt-10">
-                    <button className="btn-secondary">Check-in</button>
-                    <button onClick={handleDeleteCheckin} className="btn-secondary">Delete</button>
-                </div>
             </div>
-            {isModalCheckinOpen && <ModalRealizarCheckin closeModal={handleOpenModalCheckin} />}
+            {isModalCheckinOpen && <ModalRealizarCheckin treinos={treinos} closeModal={handleOpenModalCheckin} />}
         </div>
     )
 }

@@ -28,7 +28,7 @@ export function ModalDeletarTreino({ idTreino, closeModal }: ModalDeletarTreinoP
                 <h2>Exluir Treino</h2>
                 <FontAwesomeIcon icon={faXmark} onClick={closeModal} className="cursor-pointer hover:opacity-50"/>
             </div>
-            <div className="modal-body-small">
+            <div className="modal-body modal-body-small">
                 <h3 className="font-light text-xl">Você deseja realmente excluir o treino?</h3>
                 
             </div>

@@ -18,7 +18,6 @@ export function Treino() {
     const tiposTreinoData: ITipoTreino[] = useTiposTreino().data || [];
     const gruposMuscularesData: IGrupoMuscular[] = useGruposMusculares().data || [];
     const tiposExerciciosData: ITipoExercicio[] = useTiposExercicios().data || [];
-    console.log(gruposMuscularesData)
 
     const handleOpenModalAddTreino = () => {
         setIsModalAddTreinoOpen(prev => !prev);

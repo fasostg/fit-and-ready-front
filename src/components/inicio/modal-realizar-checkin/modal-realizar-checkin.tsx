@@ -2,6 +2,11 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useCheckinMutate } from "../../../hooks/useCheckinMutate";
+import { InputNumber } from "../../shared/input-number/input-number";
+import { Select } from "../../shared/select/select";
+import type { ITreino } from "../../../interface/ITreino";
+import { ExerciciosTable } from "../../treino/exercicios-table/exercicios-table";
+import { recuperarExercicios } from "../../../utils/exercicios-mapper";
 
 interface InputProps {
     label: string,
@@ -19,18 +24,49 @@ const Input = ({ label, value, updateValue }: InputProps) => {
 }
 
 interface ModalRealizarCheckinProps {
+    treinos: ITreino[];
     closeModal(): void;
 }
 
-export function ModalRealizarCheckin({ closeModal }: ModalRealizarCheckinProps) {
-    const [treino, setTreino] = useState("");
-    const [tempoTreino, setTempoTreino] = useState(0);
-    const [calorias, setCalorias] = useState(0);
-    const [peso, setPeso] = useState(0);
-    const [intensidade, setIntensidade] = useState("");
-    const {mutate, isSuccess, isPending} = useCheckinMutate()
+export function ModalRealizarCheckin({ treinos, closeModal }: ModalRealizarCheckinProps) {
+    console.log("Treinos no modal:", treinos);
+    const [treino, setTreino] = useState(treinos[0]?.nome || "");
+    const [tempoTreino, setTempoTreino] = useState("");
+    const [calorias, setCalorias] = useState();
+    const [peso, setPeso] = useState("");
+    const [tempoDescanso, setTempoDescanso] = useState("");
+    const [exercicios, setExercicios] = useState(treinos[0]?.exercicios || []);
+
+    const {mutate, isSuccess, isPending} = useCheckinMutate();
+
+    const handleTreinoChange = (value: string | number | undefined) => {
+        setTreino(value as string);
+        setExercicios(treinos.find(t => t.nome === value)?.exercicios || []);
+    }
 
     const submit = () => {
+        if (!treino?.trim()) {
+            alert("Por favor, selecione o treino realizado");
+            return;
+        }
+
+        if (!tempoTreino.trim()) {
+            alert("Por favor, insira o tempo de treino");
+            return;
+        }
+
+        if (!tempoDescanso.trim()) {
+            alert("Por favor, insira o tempo de descanso entre séries");
+            return;
+        }
+
+        console.log("TIPOS TREINO", tiposTreino)
+        const idTipoTreino: number | undefined = tiposTreino.find(tipo => tipo.nome === tipoTreino)?.id
+        if (idTipoTreino == null) {
+            alert("Tipo de treino inválido");
+            return;
+        }
+
         const checkin = {
             treino,
             tempoTreino,
@@ -50,30 +86,22 @@ export function ModalRealizarCheckin({ closeModal }: ModalRealizarCheckinProps) 
                 <FontAwesomeIcon icon={faXmark} onClick={closeModal}/>
             </div>
             <div className="modal-body">
-                <form className="input-container flex gap-3">
-                    <Input label="Treino" value={treino} updateValue={setTreino}/>
-                    <Input label="Tempo (min)" value={tempoTreino} updateValue={setTempoTreino}/>
-                    <Input label="Intensidade" value={intensidade} updateValue={setIntensidade}/>
-                    <Input label="Peso (kg)" value={peso} updateValue={setPeso}/>
+                <form className="input-container flex grid grid-cols-12 gap-3">
+                    <div className="col-span-4">
+                        <Select label="Treino" value={treino} options={treinos} updateValue={handleTreinoChange}/>
+                    </div>
+                    <div className="col-span-3">
+                        <InputNumber label="Tempo (min)" value={tempoTreino} updateValue={setTempoTreino}/>
+                    </div>
+                    <div className="col-span-3">
+                        <InputNumber label="Tempo de descanso (min)" value={tempoDescanso} updateValue={setTempoDescanso}/>
+                    </div>
+                    <div className="col-span-2">
+                        <InputNumber label="Peso (kg)" value={peso} updateValue={setPeso}/>
+                    </div>
                 </form>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>TITULO</th>
-                            <th>SUBTITULO</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>2</td>
-                        </tr>
-                    </tbody>
-                </table>
+
+                <ExerciciosTable data={recuperarExercicios(exercicios)}/>
             </div>
             <div className="modal-footer gap-2">
                 <button onClick={closeModal} className="btn-secondary">Cancelar</button>

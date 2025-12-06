@@ -6,6 +6,6 @@ export interface ITreino {
     nome: string,
     tipoTreino?: ITipoTreino,
     dataInicio: string,
-    dataFim: string,
+    dataFim?: string,
     exercicios: IExercicio[]
 }

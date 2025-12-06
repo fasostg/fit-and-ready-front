@@ -11,7 +11,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
   data: ExercicioProps[];
-  deleteExercicio(id: string): void; 
+  deleteExercicio?(id: string): void; 
 }
 
 export function ExerciciosTable({ data, deleteExercicio }: Props) {
@@ -58,12 +58,19 @@ export function ExerciciosTable({ data, deleteExercicio }: Props) {
                         {flexRender(header.column.columnDef.header, header.getContext())}
                     </th>
                   ))}
-                  <th></th>
+                  {deleteExercicio != null && <th></th>}
               </tr>
             ))}
         </thead>
 
         <tbody>
+            {data.length === 0 && 
+              <tr>
+                <td colSpan={columns.length} className="text-start px-3 py-3 text-gray-800">
+                  Nenhum exercício adicionado.
+                </td>
+              </tr>
+            }
             {table.getRowModel().rows.map(row => (
               <tr key={row.id} className="border-b border-gray-200 hover:bg-blue-100 transition">
                   {row.getVisibleCells().map(cell => (
@@ -71,11 +78,13 @@ export function ExerciciosTable({ data, deleteExercicio }: Props) {
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ))}
-                  <td>
-                    <button className="cursor-pointer" onClick={() => deleteExercicio(row.id)}>
-                      <FontAwesomeIcon icon={faXmark}/>
-                    </button>
-                  </td>
+                  {deleteExercicio != null &&
+                    <td>
+                      <button className="cursor-pointer" onClick={() => deleteExercicio(row.id)}>
+                        <FontAwesomeIcon icon={faXmark}/>
+                      </button>
+                    </td>
+                  }
               </tr>
             ))}
         </tbody>

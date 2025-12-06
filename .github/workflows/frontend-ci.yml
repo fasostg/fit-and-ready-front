@@ -15,7 +15,7 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: cd frontend && npm install
+        run: npm install
 
       - name: Run tests
         run: cd frontend && npm test -- --watchAll=false

@@ -32,7 +32,7 @@ export function ModalRealizarCheckin({ treinos, closeModal }: ModalRealizarCheck
     console.log("Treinos no modal:", treinos);
     const [treino, setTreino] = useState(treinos[0]?.nome || "");
     const [tempoTreino, setTempoTreino] = useState("");
-    const [calorias, setCalorias] = useState();
+    const [calorias, setCalorias] = useState(0);
     const [peso, setPeso] = useState("");
     const [tempoDescanso, setTempoDescanso] = useState("");
     const [exercicios, setExercicios] = useState(treinos[0]?.exercicios || []);
@@ -67,6 +67,8 @@ export function ModalRealizarCheckin({ treinos, closeModal }: ModalRealizarCheck
             return;
         }
 
+        //criar método para setar calorias
+        setCalorias(0);
         const checkin = {
             treino,
             tempoTreino,

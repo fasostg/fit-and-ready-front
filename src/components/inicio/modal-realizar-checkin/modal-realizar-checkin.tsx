@@ -7,6 +7,8 @@ import { Select } from "../../shared/select/select";
 import type { ITreino } from "../../../interface/ITreino";
 import { ExerciciosTable } from "../../treino/exercicios-table/exercicios-table";
 import { recuperarExercicios } from "../../../utils/exercicios-mapper";
+import "./modal-realizar-checkin.css";
+import { CheckinExerciciosTable } from "../checkin-exercicios-table/checkin-exercicios-table";
 
 interface InputProps {
     label: string,
@@ -60,13 +62,6 @@ export function ModalRealizarCheckin({ treinos, closeModal }: ModalRealizarCheck
             return;
         }
 
-        console.log("TIPOS TREINO", tiposTreino)
-        const idTipoTreino: number | undefined = tiposTreino.find(tipo => tipo.nome === tipoTreino)?.id
-        if (idTipoTreino == null) {
-            alert("Tipo de treino inválido");
-            return;
-        }
-
         //criar método para setar calorias
         setCalorias(0);
         const checkin = {
@@ -104,14 +99,7 @@ export function ModalRealizarCheckin({ treinos, closeModal }: ModalRealizarCheck
                 </form>
 
                 <h5 className="font-medium text-xl mt-6">Exercícios</h5>
-                {exercicios.map(exercicio => 
-                    <div>
-                        <p>{exercicio.tipoExercicio.nome}</p>
-                        <p></p>
-
-                    </div>
-                )}
-                <ExerciciosTable data={recuperarExercicios(exercicios)}/>
+                <CheckinExerciciosTable data={recuperarExercicios(exercicios)}></CheckinExerciciosTable>
             </div>
             <div className="modal-footer gap-2">
                 <button onClick={closeModal} className="btn-secondary">Cancelar</button>

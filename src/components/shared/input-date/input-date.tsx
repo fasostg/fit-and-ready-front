@@ -1,8 +1,8 @@
 import { useMask } from "@react-input/mask";
 
 interface InputDateProps {
-    label: string;
-    value: string;
+    label?: string;
+    value?: string;
     updateValue(value: string): void;
 }
 

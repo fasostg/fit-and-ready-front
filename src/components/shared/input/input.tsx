@@ -1,6 +1,6 @@
 interface InputProps {
-    label: string,
-    value: string | number,
+    label?: string,
+    value?: string | number,
     updateValue(value: unknown): void
 }
 

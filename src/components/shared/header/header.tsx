@@ -9,7 +9,7 @@ export function Header() {
 
     //TODO: ONCLICK PARA ABRIR O HAMBURGUER NÃO FUNCIONA
     return (
-        <div className="h-20 flex justify-center items-center border-b border-slate-300 shadow-md shadow-slate-200 sticky top-0">
+        <div className="h-20 flex justify-center items-center bg-slate-100 border-b border-slate-300 shadow-md shadow-slate-200 sticky top-0">
             <div className="w-2/5 flex justify-center items-center ml-16">
                 <Link to="/inicio">
                     <img src={logo} className='w-25 mr-4'></img>

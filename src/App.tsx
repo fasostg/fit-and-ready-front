@@ -10,7 +10,7 @@ import { Treino } from './pages/Treino';
 
 function App() {
   return (
-    <div className="w-screen h-screen bg-slate-100 font-display">
+    <div className="w-screen h-screen font-display">
       <div>
         <Header />
         <Routes>

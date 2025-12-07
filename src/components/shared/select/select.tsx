@@ -1,10 +1,11 @@
+import type { ITipoTreino } from "../../../interface/ITipoTreino";
 import type { ITreino } from "../../../interface/ITreino";
 
 interface SelectProps {
   label?: string;
   value?: string | number;
-  options?: { id: string | number; nome: string }[] | ITreino[];
-  updateValue(value: string | number |  undefined): void;
+  options?: { id: string | number; nome: string }[] | ITreino[] | ITipoTreino[];
+  updateValue(value: string | number |  undefined | unknown): void;
 }
 
 export function Select({ label, value, options, updateValue }: SelectProps) {

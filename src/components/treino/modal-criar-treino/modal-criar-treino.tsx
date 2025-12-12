@@ -21,7 +21,8 @@ export interface ExercicioProps {
     grupoMuscular: string,
     tipoExercicio: string,
     numeroSeries: number,
-    numeroRepeticoes: number
+    numeroRepeticoes: number,
+    carga?: number
 }
 
 interface ModalCriarTreinoProps {

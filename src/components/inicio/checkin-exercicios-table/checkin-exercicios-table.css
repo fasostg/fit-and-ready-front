@@ -1,23 +1,23 @@
 .table-tag {
-    display: block;
+    display: flex !important;
     justify-content: center !important;
-    align-items: center !important;
     justify-items: center !important;
+    align-items: center !important;
+    align-content: center !important;
     font-size: 1rem;
     font-weight: 500;
     color: #FAFAFA;
     background-color: #2A34FF;
-    padding: 0.5rem 1.5rem;
     border-radius: 5px;
-    width: 100% !important;
+    width: 15rem !important;
     height: 2rem !important;
-    text-align: center;
+    text-align: center !important;
 }
 
 .table-input {
     display: flex !important;
     justify-content: center !important;
-    justify-items: center !important;
+    justify-items: start !important;
     align-items: center !important;
     align-content: center !important;
     padding: 8px !important;
@@ -26,6 +26,10 @@
     font-size: 18px;
     line-height: 10px !important;
     border-radius: 12px;
-    width: 1rem !important;
+    min-width: 100% !important;
     margin: 10px !important;
+}
+
+.list-input {
+    margin-top: 10px;
 }

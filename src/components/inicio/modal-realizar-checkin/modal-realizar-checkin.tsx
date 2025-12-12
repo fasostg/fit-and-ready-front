@@ -5,7 +5,6 @@ import { useCheckinMutate } from "../../../hooks/useCheckinMutate";
 import { InputNumber } from "../../shared/input-number/input-number";
 import { Select } from "../../shared/select/select";
 import type { ITreino } from "../../../interface/ITreino";
-import { ExerciciosTable } from "../../treino/exercicios-table/exercicios-table";
 import { recuperarExercicios } from "../../../utils/exercicios-mapper";
 import "./modal-realizar-checkin.css";
 import { CheckinExerciciosTable } from "../checkin-exercicios-table/checkin-exercicios-table";
@@ -93,13 +92,13 @@ export function ModalRealizarCheckin({ treinos, closeModal }: ModalRealizarCheck
                     <div className="col-span-3">
                         <InputNumber label="Tempo de descanso (min)" value={tempoDescanso} updateValue={setTempoDescanso}/>
                     </div>
-                    <div className="col-span-2">
+                    <div className="col-span-2 flex justify-center items-center align-middle">
                         <InputNumber label="Peso (kg)" value={peso} updateValue={setPeso}/>
                     </div>
                 </form>
 
                 <h5 className="font-medium text-xl mt-6">Exercícios</h5>
-                <CheckinExerciciosTable data={recuperarExercicios(exercicios)}></CheckinExerciciosTable>
+                <CheckinExerciciosTable data={recuperarExercicios(exercicios)} exerciciosChange={() => setExercicios}></CheckinExerciciosTable>
             </div>
             <div className="modal-footer gap-2">
                 <button onClick={closeModal} className="btn-secondary">Cancelar</button>

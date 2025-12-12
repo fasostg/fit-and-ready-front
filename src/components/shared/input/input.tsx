@@ -7,7 +7,9 @@ interface InputProps {
 export function Input({ label, value, updateValue }: InputProps) {
     return (
         <div>
-            <label className="input-container-label">{label}</label>
+            {label != null &&
+                <label className="input-container-label">{label}</label>
+            }
             <input value={value} onChange={e => updateValue(e.target.value)}></input>
         </div>
     )

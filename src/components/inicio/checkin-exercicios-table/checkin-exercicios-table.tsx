@@ -1,94 +1,66 @@
-import {
-  getCoreRowModel,
-  useReactTable,
-  type ColumnDef,
-} from "@tanstack/react-table";
-import { useMemo } from "react";
 import type { ExercicioProps } from "../../treino/modal-criar-treino/modal-criar-treino";
 import "./checkin-exercicios-table.css";
+import { InputNumber } from "../../shared/input-number/input-number";
+import { Input } from "../../shared/input/input";
 
 interface Props {
   data: ExercicioProps[];
-  deleteExercicio?(id: string): void; 
+  exerciciosChange(value: ExercicioProps[]): void; 
 }
 
-export function CheckinExerciciosTable({ data, deleteExercicio }: Props) {
-  
-  const columns = useMemo<ColumnDef<ExercicioProps>[]> (
-    () => [
-      {
-        accessorKey: "id",
-        header: "ID",
-      },
-      {
-        accessorKey: "grupoMuscular",
-        header: "Grupo Muscular",
-      },
-      {
-        accessorKey: "tipoExercicio",
-        header: "Tipo",
-      },
-      {
-        accessorKey: "numeroSeries",
-        header: "Nº de séries",
-      },
-      {
-        accessorKey: "numeroRepeticoes",
-        header: "Nº de repetições",
-      },
-    ], []
-  )
+export function CheckinExerciciosTable({ data, exerciciosChange }: Props) {
 
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
+  const handleCargaChange = (carga: number, exercicio: ExercicioProps) => {
+    console.log("exercicio =>", exercicio)
+    console.log("carga =>", carga)
+    data.forEach(item => {
+      if (item.id == exercicio.id) {
+        item.carga = carga;
+      }
+    })
+
+    exerciciosChange(data)
+  } 
 
   return (
     <div className="w-full overflow-x-auto mt-4">
-        <table border={1} className="min-w-full border border-gray-300 rounded-lg">
-          <thead>
-              <tr className="text-gray-700">
-                  <th className="w-2/7"></th>
-                  <th className="w-1/7 px-3 py-2 text-center font-semibold select-none">
-                      Séries x Repetições
-                  </th>
-                  <th className="px-3 py-2 text-center font-semibold select-none">
-                      Carga (kg)
-                  </th>
-                  <th className="px-3 py-2 text-center font-semibold select-none">
-                      Observação
-                  </th>
-              </tr>
-          </thead>
-
-          <tbody>
-              {data.length === 0 && 
-                <tr>
-                  <td colSpan={columns.length} className="text-start px-3 py-3 text-gray-800">
-                    Nenhum exercício adicionado.
-                  </td>
-                </tr>
-              }
-              {data.map(row => (
-                <tr key={row.id} className="border-b border-gray-200 hover:bg-blue-100 transition">
-                    <td>
-                      <span className="table-tag">{row.tipoExercicio}</span>
-                    </td>
-                    <td key={row.id} className="px-3 py-3 text-gray-800 text-center">
-                        {row.numeroSeries} x {row.numeroRepeticoes}
-                    </td>
-                    <td className="flex justify-center">
-                      <input className="table-input"></input>
-                    </td>
-                    <td className="flex justify-center">
-                      <input className="table-input"></input>
-                    </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+        <div className="min-w-full border border-gray-300 rounded-lg">
+            <div className="grid grid-cols-12 justify-center items-center text-center border-b border-gray-200 hover:bg-blue-100 transition">
+                <div className="flex justify-center col-span-3">
+                    <span className="font-bold">Exercício</span>
+                </div>
+                <div className="flex justify-center col-span-2">
+                    <span className="font-bold">Séries x <br/>Repetições</span>
+                </div>
+                <div className="flex justify-center col-span-2">
+                    <span className="font-bold">Carga (kg)</span>
+                </div>
+                <div className="flex justify-center col-span-5">
+                    <span className="font-bold">Observação</span>
+                </div>
+            </div>
+            {data.map(row => (
+                <div key={row.id} className="grid grid-cols-12 justify-center items-center text-center border-b border-gray-200 hover:bg-blue-100 transition">
+                    <div className="flex justify-center col-span-3 p-3">
+                        <span className="table-tag">{row.tipoExercicio}</span>
+                    </div>
+                    <div className="flex justify-center col-span-2">
+                        <span className="flex justify-center text-center text-gray-800">{row.numeroSeries} x {row.numeroRepeticoes}</span>
+                    </div>
+                    <div className="flex justify-center col-span-2 mb-0">
+                        <div className="list-input">
+                          //TODO CORRIGIR ESSE UPDATE
+                            <InputNumber value={"1"} valueObject={row} updateValue={handleCargaChange(1, row)}/>
+                        </div>
+                    </div>
+                    <div className="flex justify-center col-span-5 mb-0">
+                        <div className="list-input">
+                            <Input value={"1"} updateValue={()=>console.log(1)}/>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
     </div>
   );
 }

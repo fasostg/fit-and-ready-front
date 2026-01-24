@@ -178,3 +178,12 @@ body {
 .btn-secondary:hover {
   background-color: #f0f0f0;
 }
+
+.clickable-icon {
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.clickable-icon:hover {
+  opacity: 50%;
+}

@@ -3,19 +3,18 @@ import { useMask } from "@react-input/mask";
 interface InputNumberProps {
     label?: string;
     value?: string;
-    updateValue(value?: string, valueObject?: object): void;
+    updateValue(value?: unknown, valueObject?: unknown): void;
     valueObject?: unknown;
 }
 
 export function InputNumber({ label, value, updateValue, valueObject }: InputNumberProps) {
 
     const inputRef = useMask({
-        mask: "__",
+        mask: "___",
         replacement: { _: /\d/ },
     });
 
     const handleChange = (newValue: string | undefined) => {
-        console.log("ENTROU HANDLE CHANGE")
         if (newValue === "" || newValue === undefined) {
             if (valueObject != null) {
                 updateValue(newValue, valueObject)
@@ -28,7 +27,7 @@ export function InputNumber({ label, value, updateValue, valueObject }: InputNum
 
         const num = Number(newValue);
 
-        if (num < 1 || num > 99) return;
+        if (num < 1 || num > 999) return;
         
         if (valueObject != null) {
             updateValue(newValue, valueObject)

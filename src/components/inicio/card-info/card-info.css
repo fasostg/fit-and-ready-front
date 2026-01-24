@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 16rem;
+    width: 17rem !important;
     height: 13rem;
     padding: 1rem;
     background-color: #FEFEFE;

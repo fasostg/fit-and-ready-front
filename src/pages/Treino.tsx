@@ -23,17 +23,12 @@ export function Treino() {
         setIsModalAddTreinoOpen(prev => !prev);
     }
 
-    const handleOpenModalDeleteTreino = () => {
-        setIsModalAddTreinoOpen(prev => !prev);
-    }
-
-    const handleOpenModalUpdateTreino = () => {
-        setIsModalAddTreinoOpen(prev => !prev);
-    }
-
     return (
-        <div className="flex flex-col justify-center items-center content-center m-20">
-            <h1 className="mt-10 mb-2 ml-4 font-bold text-2xl">Olá, XXXXXX</h1>
+        <div className="flex flex-col justify-center items-center content-center m-20 ml-[15%] mr-[15%]">
+            <div className="w-full flex flex-col justify-start items-start mb-10">
+                <h2 className="font-bold text-2xl">Gerencie seus treinos</h2>
+                <p className="font-normal text-xl mb-2">Crie, atualize e remova treinos atuais</p>
+            </div>
             <div className="mb-20 flex flex-col justify-center items-center">
                 <div className="w-full flex justify-between items-end mb-5">
                     <h5 className="font-bold text-xl">Treinos atuais</h5>
@@ -43,6 +38,8 @@ export function Treino() {
                     { treinosAtivos.map(treino => <CardTreino treino={treino} tiposTreino={tiposTreinoData} gruposMusculares={gruposMuscularesData} tiposExercicios={tiposExerciciosData} />) }
                 </div>
             </div>
+            {/* //TODO: criar linha de separação */}
+            <hr className="my-4 border-2 border-gray-500"/>
             <div className="mb-20 flex flex-col justify-center items-center">
                 <div className="w-full flex justify-between items-end mb-5">
                     <h5 className="font-bold text-xl">Treinos anteriores</h5>

@@ -1,9 +1,13 @@
+import type { IExercicio } from "./IExercicio";
+
 export interface ICheckin {
     id?: number,
     idTreino?: number,
     nomeTreino?: string,
     tempoTreino: number,
-    calorias: number,
+    dataTreino?: string,
+    calorias?: number,
     peso?: number,
-    data?: string,
+    idIntensidade?: number,
+    exercicios?: IExercicio[]
 }

@@ -25,6 +25,22 @@ export function montarExercicio(exercicio: ExercicioProps, tiposExercicios: ITip
     }
 }
 
+export function montarExercicioJaExistente(exercicio: ExercicioProps): IExercicio {
+    return {
+        tipoExercicio: {
+            id: 1,
+            nome: exercicio.tipoExercicio,
+            grupoMuscular: {
+                id: 1,
+                nome: exercicio.grupoMuscular
+            }
+        },
+        numeroSeries: exercicio.numeroSeries,
+        numeroRepeticoes: exercicio.numeroRepeticoes,
+        carga: exercicio.carga
+    }
+}
+
 export function recuperarExercicios(exercicios?: IExercicio[]): ExercicioProps[] {
     if (!exercicios) return [];
 

@@ -12,7 +12,7 @@ import type { ITipoTreino } from "../../../interface/ITipoTreino";
 import type { IExercicio } from "../../../interface/IExercicio";
 import { useTreinoMutate, useTreinoUpdate } from "../../../hooks/useTreinoMutate";
 import { InputDate } from "../../shared/input-date/input-date";
-import { validateDate } from "../../../utils/validate-date";
+import { formatDate, validateDate } from "../../../utils/date-utils";
 import { InputNumber } from "../../shared/input-number/input-number";
 import { montarExercicio, recuperarExercicios } from "../../../utils/exercicios-mapper";
 
@@ -37,7 +37,7 @@ export function ModalCriarTreino({ treino, tiposTreino, gruposMusculares, tiposE
     const [isEdicao, setIsEdicao] = useState(!!treino);
     const [nomeTreino, setNomeTreino] = useState(treino?.nome);
     const [tipoTreino, setTipoTreino] = useState(treino?.tipoTreino?.nome || tiposTreino[0].nome);
-    const [dataInicio, setDataInicio] = useState(treino?.dataInicio);
+    const [dataInicio, setDataInicio] = useState(formatDate(treino?.dataInicio));
 
     const [exercicios, setExercicios] = useState<ExercicioProps[]>(recuperarExercicios(treino?.exercicios));
     const [grupoMuscular, setGrupoMuscular] = useState(gruposMusculares[0].nome);
@@ -72,17 +72,17 @@ export function ModalCriarTreino({ treino, tiposTreino, gruposMusculares, tiposE
         }
         
         if (!grupoMuscular || !tipoExercicio) {
-            alert("Por favor, selecione o grupo muscular e o tipo de exercício");
+            alert("Por favor, selecione corretamente o grupo muscular e o tipo de exercício");
             return;
         }
 
         if (exercicios.find(exercicio => exercicio.tipoExercicio === tipoExercicio)) {
-            alert("Exercício já adicionado");
+            alert("Exercício com o mesmo tipo já adicionado");
             return;
         }
 
         if (!numeroSeries || !numeroRepeticoes) {
-            alert("Por favor, insira o número de séries e repetições");
+            alert("Por favor, insira corretamente o número de séries e repetições");
             return;
         }
 
@@ -128,7 +128,6 @@ export function ModalCriarTreino({ treino, tiposTreino, gruposMusculares, tiposE
             return;
         }
 
-        console.log("TIPOS TREINO", tiposTreino)
         const idTipoTreino: number | undefined = tiposTreino.find(tipo => tipo.nome === tipoTreino)?.id
         if (idTipoTreino == null) {
             alert("Tipo de treino inválido");
@@ -174,7 +173,7 @@ export function ModalCriarTreino({ treino, tiposTreino, gruposMusculares, tiposE
                         <Input label="Nome do treino" value={nomeTreino} updateValue={setNomeTreino}/>
                     </div>
                     <div className="col-span-1">
-                        <Select label="Tipo do treino" value={tipoTreino} options={tiposTreino} updateValue={setTipoTreino}/>
+                        <Select label="Tipo de treino" value={tipoTreino} options={tiposTreino} updateValue={setTipoTreino}/>
                     </div>
                     <div className="col-span-1">
                         <InputDate label="Data de início" value={dataInicio} updateValue={setDataInicio}/>
@@ -186,7 +185,7 @@ export function ModalCriarTreino({ treino, tiposTreino, gruposMusculares, tiposE
                 <div className="w-full flex justify-start align-top">
                     <form className="input-container grid grid-cols-4 justify-start align-top items-start gap-3">
                         <Select label="Grupo muscular" value={grupoMuscular} options={gruposMusculares} updateValue={handleGrupoMuscularChange}/>
-                        <Select label="Tipo do exercício" value={tipoExercicio} options={tiposExerciciosByGrupo} updateValue={setTipoExercicio}/>
+                        <Select label="Tipo de exercício" value={tipoExercicio} options={tiposExerciciosByGrupo} updateValue={setTipoExercicio}/>
                         <InputNumber label="Séries" value={numeroSeries} updateValue={setNumeroSeries}/>
                         <InputNumber label="Repetições" value={numeroRepeticoes} updateValue={setNumeroRepeticoes}/>                        
                     </form>

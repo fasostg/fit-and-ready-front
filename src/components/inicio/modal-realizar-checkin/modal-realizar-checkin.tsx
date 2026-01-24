@@ -5,40 +5,26 @@ import { useCheckinMutate } from "../../../hooks/useCheckinMutate";
 import { InputNumber } from "../../shared/input-number/input-number";
 import { Select } from "../../shared/select/select";
 import type { ITreino } from "../../../interface/ITreino";
-import { recuperarExercicios } from "../../../utils/exercicios-mapper";
 import "./modal-realizar-checkin.css";
 import { CheckinExerciciosTable } from "../checkin-exercicios-table/checkin-exercicios-table";
-
-interface InputProps {
-    label: string,
-    value: string | number,
-    updateValue(value: unknown): void
-}
-
-const Input = ({ label, value, updateValue }: InputProps) => {
-    return (
-        <div>
-            <label className="input-container-label">{label}</label>
-            <input value={value} onChange={e => updateValue(e.target.value)}></input>
-        </div>
-    )
-}
+import type { ICheckin } from "../../../interface/ICheckin";
+import type { IIntensidade } from "../../../interface/IIntensidade";
 
 interface ModalRealizarCheckinProps {
     treinos: ITreino[];
+    intensidades: IIntensidade[];
     closeModal(): void;
 }
 
-export function ModalRealizarCheckin({ treinos, closeModal }: ModalRealizarCheckinProps) {
-    console.log("Treinos no modal:", treinos);
+export function ModalRealizarCheckin({ treinos, intensidades, closeModal }: ModalRealizarCheckinProps) {
+    console.log("intensidades no modal:", intensidades);
     const [treino, setTreino] = useState(treinos[0]?.nome || "");
     const [tempoTreino, setTempoTreino] = useState("");
-    const [calorias, setCalorias] = useState(0);
     const [peso, setPeso] = useState("");
-    const [tempoDescanso, setTempoDescanso] = useState("");
+    const [intensidade, setIntensidade] = useState(intensidades[0]?.nome || "");
     const [exercicios, setExercicios] = useState(treinos[0]?.exercicios || []);
 
-    const {mutate, isSuccess, isPending} = useCheckinMutate();
+    const {mutate} = useCheckinMutate();
 
     const handleTreinoChange = (value: string | number | undefined) => {
         setTreino(value as string);
@@ -56,18 +42,23 @@ export function ModalRealizarCheckin({ treinos, closeModal }: ModalRealizarCheck
             return;
         }
 
-        if (!tempoDescanso.trim()) {
-            alert("Por favor, insira o tempo de descanso entre séries");
+        if (!intensidade.trim()) {
+            alert("Por favor, insira a intensidade do treino");
             return;
         }
 
+        console.log("******************************")
+        console.log("INTENSIDADE", intensidade)
         //criar método para setar calorias
-        setCalorias(0);
-        const checkin = {
-            treino,
-            tempoTreino,
-            calorias,
-            peso,
+        const idTreino = treinos.find(t => t.nome === treino)?.id;
+        const idIntensidade = intensidades.find(i => i.nome === intensidade)?.id;
+        console.log("ID INTENSIDADE", idIntensidade)
+        const checkin: ICheckin = {
+            idTreino: idTreino,
+            tempoTreino: Number(tempoTreino),
+            peso: Number(peso),
+            idIntensidade: idIntensidade,
+            exercicios: exercicios
         }
 
         mutate(checkin);
@@ -79,10 +70,10 @@ export function ModalRealizarCheckin({ treinos, closeModal }: ModalRealizarCheck
         <div className="modal-overlay">
             <div className="modal-header">
                 <h2>Registrar Check-in</h2>
-                <FontAwesomeIcon icon={faXmark} onClick={closeModal}/>
+                <FontAwesomeIcon icon={faXmark} onClick={closeModal} className="clickable-icon"/>
             </div>
             <div className="modal-body">
-                <form className="input-container flex grid grid-cols-12 gap-3">
+                <form className="input-container grid grid-cols-12 gap-3">
                     <div className="col-span-4">
                         <Select label="Treino" value={treino} options={treinos} updateValue={handleTreinoChange}/>
                     </div>
@@ -90,7 +81,7 @@ export function ModalRealizarCheckin({ treinos, closeModal }: ModalRealizarCheck
                         <InputNumber label="Tempo (min)" value={tempoTreino} updateValue={setTempoTreino}/>
                     </div>
                     <div className="col-span-3">
-                        <InputNumber label="Tempo de descanso (min)" value={tempoDescanso} updateValue={setTempoDescanso}/>
+                        <Select label="Intensidade" value={intensidade} options={intensidades} updateValue={setIntensidade}/>
                     </div>
                     <div className="col-span-2 flex justify-center items-center align-middle">
                         <InputNumber label="Peso (kg)" value={peso} updateValue={setPeso}/>
@@ -98,7 +89,7 @@ export function ModalRealizarCheckin({ treinos, closeModal }: ModalRealizarCheck
                 </form>
 
                 <h5 className="font-medium text-xl mt-6">Exercícios</h5>
-                <CheckinExerciciosTable data={recuperarExercicios(exercicios)} exerciciosChange={() => setExercicios}></CheckinExerciciosTable>
+                <CheckinExerciciosTable data={exercicios} exerciciosChange={(value) => setExercicios(value)}></CheckinExerciciosTable>
             </div>
             <div className="modal-footer gap-2">
                 <button onClick={closeModal} className="btn-secondary">Cancelar</button>

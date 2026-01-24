@@ -2,71 +2,95 @@ import { useState } from "react";
 import { CardInfo } from "../components/inicio/card-info/card-info";
 import { Checkin } from "../components/inicio/checkin/checkin";
 import { ModalRealizarCheckin } from "../components/inicio/modal-realizar-checkin/modal-realizar-checkin";
-import { useCheckin } from "../hooks/useCheckin";
+import { useCheckin, useIntensidade } from "../hooks/useCheckin";
 import type { ICheckin } from "../interface/ICheckin";
 import type { ITreino } from "../interface/ITreino";
 import { useTreino } from "../hooks/useTreino";
+import { faChartSimple, faClock, faFire, faPersonRunning } from "@fortawesome/free-solid-svg-icons";
+import type { IIntensidade } from "../interface/IIntensidade";
 
 
 export function Inicio() {
     const treinos: ITreino[] = useTreino().data?.filter(treino => treino.dataFim == null) || [];
+    const intensidades: IIntensidade[] = useIntensidade().data || [];
+
     const [isModalCheckinOpen, setIsModalCheckinOpen]= useState(false);
 
-    //MOCKS CHECKIN
-    const [checkins, setCheckins] = useState([
-        { id: 1, treino: 'Treino A', data: '2024-06-01', peso: 70 },
-        { id: 2, treino: 'Treino B', data: '2024-06-08', peso: 69.5 },
-        { id: 3, treino: 'Treino C', data: '2024-06-15', peso: 69  },
-    ])
-
     const checkinData: ICheckin[] = useCheckin().data || [];
-    console.log(checkinData)
 
-    //MOCKS CARDS
-    const [cards, setCards] = useState([
-        { tipo: "Calorias queimadas", valor: 1000 },
-        { tipo: "Treinos realizados", valor: 10 },
-        { tipo: "Tempo treinado", valor: 1600 },
-        { tipo: "IMC médio", valor: 22 },
-    ])
+    const calcularCalorias = () => {
+        return checkinData.reduce((total, checkin) => total + (checkin.calorias ?? 0), 0);
+    }
+
+    const calcularTreinos = () => {
+        return checkinData.length;
+    }
+
+    const calcularTempoTreinado = () => {
+        return checkinData.reduce((total, checkin) => total + (checkin.tempoTreino ?? 0), 0);
+    }
+
+    //TODO: AJUSTAR CALCULO DO IMC
+    const calcularIMC = () => {
+        if (checkinData.length === 0) return 0;
+
+        return checkinData[checkinData.length - 1].peso ?? 0;
+    }
+
+    const cards = [
+        {
+            tipo: "Calorias queimadas",
+            valor: calcularCalorias(),
+            icone: faFire,
+            unidade: "kcal"
+        },
+        {
+            tipo: "Treinos realizados",
+            valor: calcularTreinos(),
+            icone: faPersonRunning,
+            unidade: "treinos"
+        },
+        {
+            tipo: "Tempo treinado",
+            valor: calcularTempoTreinado(),
+            icone: faClock,
+            unidade: "minutos"
+        },
+        {
+            tipo: "IMC médio",
+            valor: calcularIMC(),
+            icone: faChartSimple,
+            unidade: ""
+        }
+    ];
 
     const handleOpenModalCheckin = () => {
         setIsModalCheckinOpen(prev => !prev);
     }
 
-    const handleAddCheckin = () => {
-        const newCheckin = { id: 3, treino: 'Treino C', data: '2024-06-15', peso: 69  };
-        setCheckins([...checkins, newCheckin]);
-        console.log(checkins)
-
-        //setIsModalCheckinOpen(prev => !prev);
-    }
-
-
-    const handleDeleteCheckin = () => {
-        setCheckins(checkins.slice(0,-1));
-        console.log(checkins)
-    }
-
-
     return (
-        <div className="flex flex-col mr-20 ml-20">
-            <div className="flex flex-col justify-center items-center content-center m-20">
-                <h1 className="mt-10 mb-2 ml-4 font-bold text-2xl">Olá, XXXXXX</h1>
+        <div className="flex flex-col justify-center items-center content-center m-20 ml-[15%] mr-[15%]">
+            <div className="w-full flex flex-col justify-start items-start mb-10">
+                <h2 className="font-bold text-2xl">Bem vindo(a)!!</h2>
+                <p className="font-normal text-xl mb-2">Crie treinos para começar a realizar check-ins :)</p>
+            </div>
+            <div className="flex flex-col justify-center items-center content-center">
                 <div className="mb-20 flex justify-center items-center">
                     <div className="card-grid">
                         {cards.map(card => 
                             <CardInfo 
                                 tipo={card.tipo ?? "default"}
                                 valor={card.valor ?? 0}
+                                icone={card.icone}
+                                unidade={card.unidade}
                             />
                         )}                    
                     </div>
                 </div>
                 
-                <div className="w-4/5">
+                <div className="w-7/10">
                     <div className="w-full flex justify-between items-center ml-5">
-                        <h2 className="ml-5 font-bold text-xl">Treinos recentes</h2>
+                        <h2 className="font-bold text-xl">Treinos recentes</h2>
                         <button onClick={handleOpenModalCheckin} className="mr-16 btn-primary">Realizar Check-in</button>
                     </div>
                 </div>
@@ -74,7 +98,7 @@ export function Inicio() {
                     <Checkin checkins={checkinData}></Checkin>
                 </div>
             </div>
-            {isModalCheckinOpen && <ModalRealizarCheckin treinos={treinos} closeModal={handleOpenModalCheckin} />}
+            {isModalCheckinOpen && <ModalRealizarCheckin treinos={treinos} intensidades={intensidades} closeModal={handleOpenModalCheckin} />}
         </div>
     )
 }

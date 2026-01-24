@@ -24,3 +24,10 @@ export function validateDate(value?: string): string | null {
 
     return null;
 }
+
+export function formatDate(value: string | undefined): string {
+    if (!value) return "";
+
+    const [year, month, day] = value.split("-");
+    return `${day}/${month}/${year}`;
+}

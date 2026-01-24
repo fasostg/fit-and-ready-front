@@ -4,5 +4,7 @@ export interface IExercicio {
     id?: number,
     tipoExercicio: ITipoExercicio,
     numeroSeries: number,
-    numeroRepeticoes: number
+    numeroRepeticoes: number,
+    carga?: number,
+    observacao?: string
 }

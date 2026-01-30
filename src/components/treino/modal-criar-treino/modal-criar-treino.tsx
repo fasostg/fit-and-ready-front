@@ -164,7 +164,7 @@ export function ModalCriarTreino({ treino, tiposTreino, gruposMusculares, tiposE
         <div className="modal-overlay">
             <div className="modal-header">
                 <h2>Criar Treino</h2>
-                <FontAwesomeIcon icon={faXmark} onClick={closeModal}/>
+                <FontAwesomeIcon icon={faXmark} onClick={closeModal} className="clickable-icon"/>
             </div>
             <div className="modal-body">
                 <h5 className="font-bold text-xl">Treino</h5>

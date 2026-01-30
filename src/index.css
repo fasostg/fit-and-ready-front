@@ -155,6 +155,7 @@ body {
   border-radius: 8px;
   color: white;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .btn-primary:hover {

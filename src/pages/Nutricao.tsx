@@ -63,22 +63,18 @@ export function Nutricao() {
     ];
 
     return (
-        <div className="flex flex-col justify-center items-center content-center m-20 ml-[15%] mr-[15%]">
-            <div className="w-full flex flex-col justify-start items-start mb-10">
+        <div className="flex flex-col items-center m-20 ml-[15%] mr-[15%]">
+            <div className="w-full mb-10">
                 <h2 className="font-bold text-2xl">Bem vindo(a)!!</h2>
-                <p className="font-normal text-xl mb-2">Crie treinos para começar a realizar check-ins :)</p>
+                <p className="font-normal text-xl mb-2">Crie receitas para sua elevar a sua rotina</p>
             </div>
-            <div className="flex flex-col justify-center items-center content-center">
-                <div>
-                    {
-                        data.length == 1 ?
-                        <p className="btn-primary mb-4">{data.length} receita criadas</p> :
-                        <p className="btn-primary mb-4">{data.length} receitas criadas</p>
-                    }
-                </div>
-                <div className="mb-20 flex justify-center items-center">
+
+            <div className="flex flex-col items-center">
+                <p className="btn-primary mb-4">{data.length} {data.length == 1 ? "receita criada" : "receitas criadas"}</p> 
+                
+                <div className="mb-20 flex justify-center">
                     <div className="card-grid">
-                        {cards.map(card => 
+                        {cards.map(card =>
                             <CardInfo 
                                 tipo={card.tipo ?? "default"}
                                 valor={card.valor ?? 0}
@@ -89,24 +85,28 @@ export function Nutricao() {
                     </div>
                 </div>
             </div>
-            <div className="mt-5 flex justify-center items-center">
-                <div className="card-grid">
-                    {data.map(receita => 
-                        <CardReceita 
-                            nome={receita.nome} 
-                            tempoPreparo={receita.tempoPreparo} 
-                            calorias={receita.calorias ?? 0} 
-                            proteinas={receita.proteinas ?? 0} 
-                            carboidratos={receita.carboidratos ?? 0} 
-                            gorduras={receita.gorduras ?? 0}
-                        />
-                    )}
-                </div>
+
+            <hr className="w-full border border-gray-300 -mt-5 mb-12" />
+
+            <div className="w-full flex justify-end items-center mb-5">
+                <button onClick={handleOpenModalReceita} className="btn-primary">Criar nova receita</button>
             </div>
 
-            <div className="flex justify-around col gap-4 mt-10">
+            <div className="w-full mt-5 grid grid-cols-3 gap-4">
+                {data.map(receita => 
+                    <CardReceita 
+                        nome={receita.nome} 
+                        tempoPreparo={receita.tempoPreparo} 
+                        calorias={receita.calorias ?? 0} 
+                        proteinas={receita.proteinas ?? 0} 
+                        carboidratos={receita.carboidratos ?? 0} 
+                        gorduras={receita.gorduras ?? 0}
+                    />
+                )}
+            </div>
+
+            <div className="flex justify-around gap-4 mt-10">
                 {isModalReceitaOpen && <ModalCriarReceita closeModal={handleOpenModalReceita} />}
-                <button onClick={handleOpenModalReceita} className="btn-primary">Adicionar</button>
             </div>
         </div>
     )

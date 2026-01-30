@@ -34,7 +34,7 @@ export function Treino() {
                     <h5 className="font-bold text-xl">Treinos atuais</h5>
                     <button onClick={handleOpenModalAddTreino} className=" btn-primary">Adicionar Treino</button>
                 </div>
-                <div className="card-grid">
+                <div className="grid grid-cols-3 gap-4">
                     { treinosAtivos.map(treino => <CardTreino treino={treino} tiposTreino={tiposTreinoData} gruposMusculares={gruposMuscularesData} tiposExercicios={tiposExerciciosData} />) }
                 </div>
             </div>
@@ -44,7 +44,7 @@ export function Treino() {
                 <div className="w-full flex justify-between items-end mb-5">
                     <h5 className="font-bold text-xl">Treinos anteriores</h5>
                 </div>
-                <div className="card-grid">
+                <div className="grid grid-cols-3 gap-4">
                     { treinosInativos.map(treino => <CardTreino treino={treino} tiposTreino={tiposTreinoData} gruposMusculares={gruposMuscularesData} tiposExercicios={tiposExerciciosData} />) }
                 </div>
             </div>

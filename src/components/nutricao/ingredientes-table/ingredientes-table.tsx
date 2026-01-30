@@ -14,7 +14,7 @@ interface Props {
   deleteExercicio?(id: string): void; 
 }
 
-export function IngredientesTable({ data, deleteExercicio }: Props) {
+export function ExerciciosTable({ data, deleteExercicio }: Props) {
   
   const columns = useMemo<ColumnDef<ExercicioProps>[]> (
     () => [
@@ -23,20 +23,16 @@ export function IngredientesTable({ data, deleteExercicio }: Props) {
         header: "ID",
       },
       {
-        accessorKey: "grupoMuscular",
-        header: "Grupo Muscular",
+        accessorKey: "ingrediente",
+        header: "Ingrediente",
       },
       {
-        accessorKey: "tipoExercicio",
-        header: "Tipo",
+        accessorKey: "quantidade",
+        header: "Quantidade",
       },
       {
-        accessorKey: "numeroSeries",
-        header: "Nº de séries",
-      },
-      {
-        accessorKey: "numeroRepeticoes",
-        header: "Nº de repetições",
+        accessorKey: "unidadeMedida",
+        header: "Unidade de Medida",
       },
     ], []
   )
@@ -67,7 +63,7 @@ export function IngredientesTable({ data, deleteExercicio }: Props) {
               {data.length === 0 && 
                 <tr>
                   <td colSpan={columns.length} className="text-start px-3 py-3 text-gray-800">
-                    Nenhum ingrediente adicionado.
+                    Nenhum exercício adicionado.
                   </td>
                 </tr>
               }

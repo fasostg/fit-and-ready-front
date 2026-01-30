@@ -1,7 +1,9 @@
+import type { IIngrediente } from "./IIngredienteReceita";
+
 export interface IReceita {
     id?: number,
     nome: string,
-    ingredientes: string,
+    ingredientes: IIngrediente[],
     modoPreparo: string,
     tempoPreparo: number,
     calorias?: number,

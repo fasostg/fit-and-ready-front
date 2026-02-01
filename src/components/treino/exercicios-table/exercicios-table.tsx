@@ -14,7 +14,7 @@ interface Props {
   deleteExercicio?(id: string): void; 
 }
 
-export function IngredientesTable({ data, deleteExercicio }: Props) {
+export function ExerciciosTable({ data, deleteExercicio }: Props) {
   
   const columns = useMemo<ColumnDef<ExercicioProps>[]> (
     () => [

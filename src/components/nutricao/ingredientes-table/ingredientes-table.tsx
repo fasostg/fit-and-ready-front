@@ -5,18 +5,18 @@ import {
   type ColumnDef,
 } from "@tanstack/react-table";
 import { useMemo } from "react";
-import type { ExercicioProps } from "../modal-criar-treino/modal-criar-treino";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import type { IngredienteReceitaProps } from "../modal-criar-receita/modal-criar-receita";
 
 interface Props {
-  data: ExercicioProps[];
-  deleteExercicio?(id: string): void; 
+  data: IngredienteReceitaProps[];
+  deleteIngrediente?(id: string): void; 
 }
 
-export function ExerciciosTable({ data, deleteExercicio }: Props) {
+export function IngredientesTable({ data, deleteIngrediente }: Props) {
   
-  const columns = useMemo<ColumnDef<ExercicioProps>[]> (
+  const columns = useMemo<ColumnDef<IngredienteReceitaProps>[]> (
     () => [
       {
         accessorKey: "id",
@@ -28,12 +28,8 @@ export function ExerciciosTable({ data, deleteExercicio }: Props) {
       },
       {
         accessorKey: "quantidade",
-        header: "Quantidade",
-      },
-      {
-        accessorKey: "unidadeMedida",
-        header: "Unidade de Medida",
-      },
+        header: "Quantidade (gramas)",
+      }
     ], []
   )
 
@@ -54,7 +50,7 @@ export function ExerciciosTable({ data, deleteExercicio }: Props) {
                           {flexRender(header.column.columnDef.header, header.getContext())}
                       </th>
                     ))}
-                    {deleteExercicio != null && <th></th>}
+                    {deleteIngrediente != null && <th></th>}
                 </tr>
               ))}
           </thead>
@@ -63,7 +59,7 @@ export function ExerciciosTable({ data, deleteExercicio }: Props) {
               {data.length === 0 && 
                 <tr>
                   <td colSpan={columns.length} className="text-start px-3 py-3 text-gray-800">
-                    Nenhum exercício adicionado.
+                    Nenhum ingrediente adicionado.
                   </td>
                 </tr>
               }
@@ -74,9 +70,9 @@ export function ExerciciosTable({ data, deleteExercicio }: Props) {
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </td>
                     ))}
-                    {deleteExercicio != null &&
+                    {deleteIngrediente != null &&
                       <td>
-                        <button className="cursor-pointer" onClick={() => deleteExercicio(row.id)}>
+                        <button className="cursor-pointer" onClick={() => deleteIngrediente(row.id)}>
                           <FontAwesomeIcon icon={faXmark}/>
                         </button>
                       </td>

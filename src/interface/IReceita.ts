@@ -1,11 +1,13 @@
-import type { IIngrediente } from "./IIngredienteReceita";
+import type { IIngredienteReceita } from "./IIngredienteReceita";
+import type { ITipoRefeicao } from "./ITipoRefeicao";
 
 export interface IReceita {
     id?: number,
     nome: string,
-    ingredientes: IIngrediente[],
+    ingredientesReceita: IIngredienteReceita[],
     modoPreparo: string,
     tempoPreparo: number,
+    tipoRefeicao?: ITipoRefeicao,
     calorias?: number,
     proteinas?: number,
     carboidratos?: number,

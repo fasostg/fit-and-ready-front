@@ -17,7 +17,7 @@ export function montarExercicio(exercicio: ExercicioProps, tiposExercicios: ITip
             nome: exercicio.tipoExercicio,
             grupoMuscular: {
                 id: idGrupoMuscular,
-                nome: exercicio.grupoMuscular
+                nome: exercicio.grupoMuscular ?? ""
             }
         },
         numeroSeries: exercicio.numeroSeries,
@@ -32,7 +32,7 @@ export function montarExercicioJaExistente(exercicio: ExercicioProps): IExercici
             nome: exercicio.tipoExercicio,
             grupoMuscular: {
                 id: 1,
-                nome: exercicio.grupoMuscular
+                nome: exercicio.grupoMuscular ?? ""
             }
         },
         numeroSeries: exercicio.numeroSeries,
@@ -46,8 +46,8 @@ export function recuperarExercicios(exercicios?: IExercicio[]): ExercicioProps[]
 
     return exercicios.map((exercicio, index) => ({
         id: index + 1,
-        grupoMuscular: exercicio.tipoExercicio.grupoMuscular.nome,
-        tipoExercicio: exercicio.tipoExercicio.nome,
+        grupoMuscular: exercicio.tipoExercicio?.grupoMuscular?.nome ?? "",
+        tipoExercicio: exercicio.tipoExercicio?.nome ?? "",
         numeroSeries: exercicio.numeroSeries,
         numeroRepeticoes: exercicio.numeroRepeticoes
     }));

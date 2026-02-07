@@ -7,40 +7,112 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Select } from "../../shared/select/select";
 import { Input } from "../../shared/input/input";
+import type { ITipoRefeicao } from "../../../interface/ITipoRefeicao";
+import type { IIngrediente } from "../../../interface/IIngrediente";
+import { TextArea } from "../../shared/text-area/text-area";
+import { InputNumber } from "../../shared/input-number/input-number";
+import { montarIngredientesReceita, recuperarIngredientesReceita } from "../../../utils/ingredientes-mapper";
+import { IngredientesTable } from "../ingredientes-table/ingredientes-table";
 
-export interface ExercicioProps {
+export interface IngredienteReceitaProps {
     id: number,
-    grupoMuscular: string,
-    tipoExercicio: string,
-    numeroSeries: number,
-    numeroRepeticoes: number,
-    carga?: number
+    ingrediente: string,
+    quantidade?: number
 }
 
 interface ModalCreateReceitaProps {
     receita?: IReceita,
-    tiposTreino: ITipoTreino[],
-    gruposMusculares: IGrupoMuscular[],
-    tiposExercicios: ITipoExercicio[],
+    tiposRefeicao: ITipoRefeicao[],
+    ingredientes: IIngrediente[],
     closeModal(): void;
 }
 
-export function ModalCriarReceita({ closeModal }: ModalCreateReceitaProps) {
+export function ModalCriarReceita({ receita, tiposRefeicao, ingredientes, closeModal }: ModalCreateReceitaProps) {
     const [nome, setNome] = useState("");
-    const [ingredientes, setIngredientes] = useState("");
     const [modoPreparo, setModoPreparo] = useState("");
-    const [tipoRefeicao, setTipoRefeicao] = useState("");
-    const [tempoPreparo, setTempoPreparo] = useState(0);
+    const [tempoPreparo, setTempoPreparo] = useState("");
+    const [tipoRefeicao, setTipoRefeicao] = useState(tiposRefeicao[0]?.nome || "");
+
+    const [ingredientesReceita, setIngredientesReceita] = 
+        useState<IngredienteReceitaProps[]>(recuperarIngredientesReceita(receita?.ingredientes));
+    const [ingredienteSelecionado, setIngredienteSelecionado] = useState(ingredientes[0]?.nome || "");
+    const [quantidade, setQuantidade] = useState("");
     const { mutate, isSuccess, isPending } = useReceitaMutate();
+
+    const handleAddIngrediente = () => {
+        if (ingredientesReceita.length >= 15) {
+            alert("Número máximo de ingredientes atingido (15)");
+            return;
+        }
+        
+        if (!ingredienteSelecionado) {
+            alert("Por favor, selecione corretamente o ingrediente e a quantidade");
+            return;
+        }
+
+        if (ingredientesReceita.find(i => i.ingrediente === ingredienteSelecionado)) {
+            alert("Ingrediente já adicionado");
+            return;
+        }
+
+        if (!quantidade) {
+            alert("Por favor, insira corretamente o número de séries e repetições");
+            return;
+        }
+
+        const id = ingredientesReceita.length + 1;
+
+        const novoIngrediente: IngredienteReceitaProps = {
+            id: id,
+            ingrediente: ingredienteSelecionado,
+            quantidade: Number(quantidade) || 0
+        };
+
+        setIngredientesReceita([...ingredientesReceita, novoIngrediente]);
+    }
+
+    const handleDeleteExercicio = (id: string) => {
+        const idNumber = Number.parseInt(id) + 1;
+
+        const ingredientesAtualizados = ingredientesReceita.filter(ingrediente => ingrediente.id !== idNumber);
+        for (let i=0; i < ingredientesAtualizados.length; i++) {
+            ingredientesAtualizados[i].id = i + 1;
+        }
+
+        setIngredientesReceita(ingredientesAtualizados)
+    }
     
     const submit = () => {
-        console.log('chegou submit')
-        const receita: IReceita = {
-            nome,
-            ingredientes,
-            modoPreparo,
-            tempoPreparo,
+        if (!nome?.trim()) {
+            alert("Por favor, insira um nome para a receita");
+            return;
         }
+
+        if (ingredientesReceita.length === 0) {
+            alert("Por favor, adicione pelo menos um ingrediente");
+            return;
+        }
+
+        const idTipoRefeicao: number | undefined = tiposRefeicao.find(tipo => tipo.nome === tipoRefeicao)?.id
+        if (idTipoRefeicao == null) {
+            alert("Tipo de refeição inválida");
+            return;
+        }
+
+        const ingredientesReceitaMapeados = ingredientesReceita.map(
+            ingredienteReceita => montarIngredientesReceita(ingredienteReceita, ingredientes));
+
+        const receita: IReceita = {
+            nome: nome,
+            ingredientesReceita: ingredientesReceitaMapeados,
+            modoPreparo: modoPreparo,
+            tempoPreparo: Number(tempoPreparo) || 0,
+            tipoRefeicao: {
+                id: idTipoRefeicao,
+                nome: tipoRefeicao
+            }
+        }
+        console.log(receita)
 
         mutate(receita);
     }
@@ -59,37 +131,36 @@ export function ModalCriarReceita({ closeModal }: ModalCreateReceitaProps) {
                 <FontAwesomeIcon icon={faXmark} onClick={closeModal} className="clickable-icon"/>
             </div>
             <div className="modal-body">
-                <form className="input-container grid grid-cols-6 gap-4">
-                    <div className="col-span-2">
+                <form className="input-container grid grid-cols-12 gap-4">
+                    <div className="col-span-6">
                         <Input label="Nome da receita" value={nome} updateValue={(value) => setNome(value || "")}/>
                     </div>
-                    <div className="col-span-2">
-                        <Select label="Tipo de refeição" value={tipoRefeicao} updateValue={(value) => setTipoRefeicao(value || "")}/>
+                    <div className="col-span-3">
+                        <Select label="Tipo de refeição" value={tipoRefeicao} options={tiposRefeicao} updateValue={(value) => setTipoRefeicao(String(value) || "")}/>
                     </div>
-                    <div className="col-span-2">
-                        <Input label="Tempo de preparo" value={tempoPreparo} updateValue={(value) => setTempoPreparo(Number(value) || 0)}/>
+                    <div className="col-span-3">
+                        <InputNumber label="Tempo de preparo" value={tempoPreparo} updateValue={(value) => setTempoPreparo(String(value) || "")}/>
                     </div>
-                    <div className="col-span-2">
-                        <Input label="Modo de Preparo" value={modoPreparo} updateValue={(value) => setModoPreparo(value || "")}/>
-                    </div>
-                    <div className="col-span-2">
-                        <Input label="Ingredientes" value={ingredientes} updateValue={(value) => setIngredientes(value || "")}/>
+                    <div className="col-span-12">
+                        <TextArea label="Modo de Preparo" value={modoPreparo} updateValue={(value) => setModoPreparo(value || "")}/>
                     </div>
                 </form>
 
-                <div className="w-full flex justify-start align-top">
-                    <form className="input-container grid grid-cols-4 justify-start align-top items-start gap-3">
-                        <Select label="Grupo muscular" value={grupoMuscular} options={gruposMusculares} updateValue={handleGrupoMuscularChange}/>
-                        <Select label="Tipo de exercício" value={tipoExercicio} options={tiposExerciciosByGrupo} updateValue={setTipoExercicio}/>
-                        <InputNumber label="Séries" value={numeroSeries} updateValue={setNumeroSeries}/>
-                        <InputNumber label="Repetições" value={numeroRepeticoes} updateValue={setNumeroRepeticoes}/>                        
+                <div className="w-full flex items-center mt-10">
+                    <form className="input-container grid grid-cols-3 justify-start align-top items-start gap-3">
+                        <Select label="Ingrediente" value={ingredienteSelecionado} options={ingredientes} updateValue={setIngredienteSelecionado}/>
+                        <InputNumber label="Quantidade (g)" value={quantidade} updateValue={setQuantidade}/>
                     </form>
+                    <button onClick={handleAddIngrediente} className="btn-primary btn-adicionar">Adicionar</button>
+
                 </div>
                 <div className="w-full flex justify-end items-end align-middle pr-6">
-                    <button onClick={handleAddExercicio} className="btn-primary btn-adicionar">Adicionar</button>
                 </div>
 
-                <ExerciciosTable data={exercicios} deleteExercicio={handleDeleteExercicio} />
+                <IngredientesTable data={ingredientesReceita} deleteIngrediente={handleDeleteExercicio} />
+            </div>
+            <div className="modal-footer gap-2">
+                <button onClick={closeModal} className="btn-secondary">Cancelar</button>
                 <button onClick={submit} className="btn-primary">
                     {isPending ? 'Adicionando...' : 'Salvar'}
                 </button>

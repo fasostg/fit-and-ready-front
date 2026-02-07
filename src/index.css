@@ -82,6 +82,17 @@ body {
     margin-bottom: 12px;
 }
 
+.modal-overlay .modal-body textarea {
+    padding: 12px;
+    border: 2px solid #ccc;
+    color: black;
+    font-size: 18px;
+    line-height: 20px;
+    border-radius: 12px;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
 .modal-overlay .modal-body select {
     padding: 12px;
     border: 2px solid #ccc;
@@ -174,6 +185,7 @@ body {
   border: 1px solid #2A34FF;
   border-radius: 8px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .btn-secondary:hover {

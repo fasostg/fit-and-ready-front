@@ -18,7 +18,7 @@ import { montarExercicio, recuperarExercicios } from "../../../utils/exercicios-
 
 export interface ExercicioProps {
     id: number,
-    grupoMuscular: string,
+    grupoMuscular?: string,
     tipoExercicio: string,
     numeroSeries: number,
     numeroRepeticoes: number,

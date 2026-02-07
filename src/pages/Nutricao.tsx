@@ -1,22 +1,34 @@
 import { useState } from "react";
-import { useReceita } from "../hooks/useReceita";
+import { useIngredientes, useReceita, useTiposRefeicao } from "../hooks/useReceita";
 import type { IReceita } from "../interface/IReceita";
 import { CardInfo } from "../components/inicio/card-info/card-info";
 import { CardReceita } from "../components/nutricao/card-receita/card-receita";
 import { ModalCriarReceita } from "../components/nutricao/modal-criar-receita/modal-criar-receita";
-import { faBowlFood, faBreadSlice, faDroplet, faEgg, faFire } from "@fortawesome/free-solid-svg-icons";
+import { faBowlFood, faDroplet, faEgg, faFire } from "@fortawesome/free-solid-svg-icons";
 import { NutricaoEnum } from "../models/NutricaoEnum";
+import type { ITipoRefeicao } from "../interface/ITipoRefeicao";
+import type { IIngrediente } from "../interface/IIngrediente";
 
+function ordenarIngredientes(ingredientesData?: IIngrediente[]): IIngrediente[] {
+    if (!ingredientesData) {
+        return [];
+    }
+    return ingredientesData.sort((a, b) => (a.nome ?? "").localeCompare(b.nome ?? ""));
+}
 
 export function Nutricao() {
     const data: IReceita[] = useReceita().data || [];
+    console.log("data", data);
     const [isModalReceitaOpen, setIsModalReceitaOpen]= useState(false);
+
+    const tiposRefeicaoData: ITipoRefeicao[] = useTiposRefeicao().data || [];
+    const ingredientesData: IIngrediente[] = ordenarIngredientes(useIngredientes().data);
 
     const handleOpenModalReceita = () => {
         setIsModalReceitaOpen(prev => !prev);
     }
 
-    const calcularMedia = (param: any) => {
+    const calcularMedia = (param: unknown) => {
         if (data?.length == null || data.length == 0) {
             return 0;
         }
@@ -95,18 +107,16 @@ export function Nutricao() {
             <div className="w-full mt-5 grid grid-cols-3 gap-4">
                 {data.map(receita => 
                     <CardReceita 
-                        nome={receita.nome} 
-                        tempoPreparo={receita.tempoPreparo} 
-                        calorias={receita.calorias ?? 0} 
-                        proteinas={receita.proteinas ?? 0} 
-                        carboidratos={receita.carboidratos ?? 0} 
-                        gorduras={receita.gorduras ?? 0}
+                        receita={receita} 
+                        tiposRefeicao={tiposRefeicaoData} 
+                        ingredientes={ingredientesData} 
+                        closeModal={handleOpenModalReceita} 
                     />
                 )}
             </div>
 
             <div className="flex justify-around gap-4 mt-10">
-                {isModalReceitaOpen && <ModalCriarReceita closeModal={handleOpenModalReceita} />}
+                {isModalReceitaOpen && <ModalCriarReceita tiposRefeicao={tiposRefeicaoData} ingredientes={ingredientesData} closeModal={handleOpenModalReceita} />}
             </div>
         </div>
     )

@@ -8,6 +8,7 @@ import { faBowlFood, faDroplet, faEgg, faFire } from "@fortawesome/free-solid-sv
 import { NutricaoEnum } from "../models/NutricaoEnum";
 import type { ITipoRefeicao } from "../interface/ITipoRefeicao";
 import type { IIngrediente } from "../interface/IIngrediente";
+import { roundToDecimal } from "../utils/number-utils";
 
 function ordenarIngredientes(ingredientesData?: IIngrediente[]): IIngrediente[] {
     if (!ingredientesData) {
@@ -33,18 +34,24 @@ export function Nutricao() {
             return 0;
         }
 
+        let numero = 0;
         switch(param) {
             case NutricaoEnum.CALORIAS:
-                return data.reduce((acc, receita) => (receita?.calorias ?? 0) + acc, 0)/data.length;
+                numero = data.reduce((acc, receita) => (receita?.calorias ?? 0) + acc, 0)/data.length;
+                break;
             case NutricaoEnum.PROTEINAS:
-                return data.reduce((acc, receita) => (receita?.proteinas ?? 0) + acc, 0)/data.length;
+                numero = data.reduce((acc, receita) => (receita?.proteinas ?? 0) + acc, 0)/data.length;
+                break;
             case NutricaoEnum.CARBOIDRATOS:
-                return data.reduce((acc, receita) => (receita?.carboidratos ?? 0) + acc, 0)/data.length;
+                numero = data.reduce((acc, receita) => (receita?.carboidratos ?? 0) + acc, 0)/data.length;
+                break;
             case NutricaoEnum.GORDURAS:
-                return data.reduce((acc, receita) => (receita?.gorduras ?? 0) + acc, 0)/data.length;
+                numero = data.reduce((acc, receita) => (receita?.gorduras ?? 0) + acc, 0)/data.length;
+                break;
             default:
                 return 0;
         }
+        return roundToDecimal(numero);
     }
 
     const cards = [

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useReceitaMutate } from "../../../hooks/useReceitaMutate";
+import { useReceitaMutate, useReceitaUpdate } from "../../../hooks/useReceitaMutate";
 import type { IReceita } from "../../../interface/IReceita";
 
 import "./modal-criar-receita.css"
@@ -28,16 +28,20 @@ interface ModalCreateReceitaProps {
 }
 
 export function ModalCriarReceita({ receita, tiposRefeicao, ingredientes, closeModal }: ModalCreateReceitaProps) {
-    const [nome, setNome] = useState("");
-    const [modoPreparo, setModoPreparo] = useState("");
-    const [tempoPreparo, setTempoPreparo] = useState("");
-    const [tipoRefeicao, setTipoRefeicao] = useState(tiposRefeicao[0]?.nome || "");
+    const isEdicao = useState(!!receita);
+    const [nome, setNome] = useState(receita?.nome || "");
+    const [modoPreparo, setModoPreparo] = useState(receita?.modoPreparo || "");
+    const [tempoPreparo, setTempoPreparo] = useState(receita?.tempoPreparo || "");
+    const [tipoRefeicao, setTipoRefeicao] = useState(receita?.tipoRefeicao?.nome || tiposRefeicao[0]?.nome || "");
 
+    console.log("RECEITA =>", receita)
     const [ingredientesReceita, setIngredientesReceita] = 
-        useState<IngredienteReceitaProps[]>(recuperarIngredientesReceita(receita?.ingredientes));
+        useState<IngredienteReceitaProps[]>(recuperarIngredientesReceita(receita?.ingredientesReceita));
+    console.log("ingredientesReceita =>", ingredientesReceita)
     const [ingredienteSelecionado, setIngredienteSelecionado] = useState(ingredientes[0]?.nome || "");
     const [quantidade, setQuantidade] = useState("");
     const { mutate, isSuccess, isPending } = useReceitaMutate();
+    const { mutate: mutateUpdate, isSuccess: isSuccessUpdate, isPending: isPendingUpdate } = useReceitaUpdate();
 
     const handleAddIngrediente = () => {
         if (ingredientesReceita.length >= 15) {
@@ -99,22 +103,33 @@ export function ModalCriarReceita({ receita, tiposRefeicao, ingredientes, closeM
             return;
         }
 
-        const ingredientesReceitaMapeados = ingredientesReceita.map(
-            ingredienteReceita => montarIngredientesReceita(ingredienteReceita, ingredientes));
+        try {
+            const ingredientesReceitaMapeados = ingredientesReceita.map(
+                ingredienteReceita => montarIngredientesReceita(ingredienteReceita, ingredientes));
 
-        const receita: IReceita = {
-            nome: nome,
-            ingredientesReceita: ingredientesReceitaMapeados,
-            modoPreparo: modoPreparo,
-            tempoPreparo: Number(tempoPreparo) || 0,
-            tipoRefeicao: {
-                id: idTipoRefeicao,
-                nome: tipoRefeicao
+            const receitaData: IReceita = {
+                id: receita?.id,
+                nome: nome,
+                ingredientesReceita: ingredientesReceitaMapeados,
+                modoPreparo: modoPreparo,
+                tempoPreparo: Number(tempoPreparo) || 0,
+                tipoRefeicao: {
+                    id: idTipoRefeicao,
+                    nome: tipoRefeicao
+                }
             }
-        }
-        console.log(receita)
+            console.log(receitaData)
 
-        mutate(receita);
+            if (isEdicao) {
+                mutateUpdate(receitaData)
+                return;
+            }
+
+            mutate(receitaData);
+        } catch (error) {
+            alert("Erro ao processar ingredientes: " + (error instanceof Error ? error.message : "Desconhecido"));
+        }
+        
     }
 
     //fica ouvindo uma mudança no array de variáveis (isSuccess) para fechar o modal quando a mutação for bem sucedida
@@ -123,6 +138,12 @@ export function ModalCriarReceita({ receita, tiposRefeicao, ingredientes, closeM
         
         closeModal();
     }, [isSuccess])
+
+    useEffect(() => {
+        if (!isSuccessUpdate) return;
+        
+        closeModal();
+    }, [isSuccessUpdate])
 
     return (
         <div className="modal-overlay">
@@ -162,7 +183,7 @@ export function ModalCriarReceita({ receita, tiposRefeicao, ingredientes, closeM
             <div className="modal-footer gap-2">
                 <button onClick={closeModal} className="btn-secondary">Cancelar</button>
                 <button onClick={submit} className="btn-primary">
-                    {isPending ? 'Adicionando...' : 'Salvar'}
+                    {isEdicao ? (isPendingUpdate ? 'Atualizando...' : 'Salvar') : (isPending ? 'Adicionando...' : 'Salvar')}
                 </button>
             </div>
         </div>

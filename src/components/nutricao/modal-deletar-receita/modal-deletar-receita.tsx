@@ -26,7 +26,7 @@ export function ModalDeletarReceita({ idReceita, closeModal }: ModalDeletarRecei
     return (
         <div className="modal-overlay">
             <div className="modal-header">
-                <h2>Exluir Receita</h2>
+                <h2>Excluir Receita</h2>
                 <FontAwesomeIcon icon={faXmark} onClick={closeModal} className="cursor-pointer hover:opacity-50"/>
             </div>
             <div className="modal-body modal-body-small">

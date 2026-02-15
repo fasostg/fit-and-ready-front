@@ -1,6 +1,6 @@
-import type { ITipoRefeicao } from "../../../interface/ITipoRefeicao";
-import type { ITipoTreino } from "../../../interface/ITipoTreino";
-import type { ITreino } from "../../../interface/ITreino";
+import type { ITipoRefeicao } from "../../../interfaces/ITipoRefeicao";
+import type { ITipoTreino } from "../../../interfaces/ITipoTreino";
+import type { ITreino } from "../../../interfaces/ITreino";
 import type { TipoExercicioOption } from "../../../models/TipoExercicioOption";
 
 interface SelectProps {

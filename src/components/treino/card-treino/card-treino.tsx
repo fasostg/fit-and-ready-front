@@ -2,13 +2,13 @@ import logo from '../../../assets/logo-text.png';
 import "./card-treino.css";
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ButtonCircle } from '../../shared/button-circle/button-circle';
-import type { ITreino } from '../../../interface/ITreino';
+import type { ITreino } from '../../../interfaces/ITreino';
 import { useState } from 'react';
 import { ModalDeletarTreino } from '../modal-deletar-treino/modal-deletar-treino';
 import { ModalCriarTreino } from '../modal-criar-treino/modal-criar-treino';
-import type { ITipoTreino } from '../../../interface/ITipoTreino';
-import type { IGrupoMuscular } from '../../../interface/IGrupoMuscular';
-import type { ITipoExercicio } from '../../../interface/ITipoExercicio';
+import type { ITipoTreino } from '../../../interfaces/ITipoTreino';
+import type { IGrupoMuscular } from '../../../interfaces/IGrupoMuscular';
+import type { ITipoExercicio } from '../../../interfaces/ITipoExercicio';
 
 interface CardTreinoProps {
     treino: ITreino,

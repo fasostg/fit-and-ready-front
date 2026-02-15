@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useReceitaMutate, useReceitaUpdate } from "../../../hooks/useReceitaMutate";
-import type { IReceita } from "../../../interface/IReceita";
+import type { IReceita } from "../../../interfaces/IReceita";
 
 import "./modal-criar-receita.css"
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Select } from "../../shared/select/select";
 import { Input } from "../../shared/input/input";
-import type { ITipoRefeicao } from "../../../interface/ITipoRefeicao";
-import type { IIngrediente } from "../../../interface/IIngrediente";
+import type { ITipoRefeicao } from "../../../interfaces/ITipoRefeicao";
+import type { IIngrediente } from "../../../interfaces/IIngrediente";
 import { TextArea } from "../../shared/text-area/text-area";
 import { InputNumber } from "../../shared/input-number/input-number";
 import { montarIngredientesReceita, recuperarIngredientesReceita } from "../../../utils/ingredientes-mapper";
@@ -183,7 +183,7 @@ export function ModalCriarReceita({ receita, tiposRefeicao, ingredientes, closeM
             <div className="modal-footer gap-2">
                 <button onClick={closeModal} className="btn-secondary">Cancelar</button>
                 <button onClick={submit} className="btn-primary">
-                    {isEdicao ? (isPendingUpdate ? 'Atualizando...' : 'Salvar') : (isPending ? 'Adicionando...' : 'Salvar')}
+                    {isEdicao ? (isPendingUpdate ? 'Atualizando...' : 'Confirmar') : (isPending ? 'Adicionando...' : 'Confirmar')}
                 </button>
             </div>
         </div>

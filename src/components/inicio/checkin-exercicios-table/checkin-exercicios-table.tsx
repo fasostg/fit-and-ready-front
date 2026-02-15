@@ -1,7 +1,7 @@
 import "./checkin-exercicios-table.css";
 import { InputNumber } from "../../shared/input-number/input-number";
 import { Input } from "../../shared/input/input";
-import type { IExercicio } from "../../../interface/IExercicio";
+import type { IExercicio } from "../../../interfaces/IExercicio";
 import { useEffect, useState } from "react";
 
 interface Props {

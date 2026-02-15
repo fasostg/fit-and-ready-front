@@ -1,42 +1,43 @@
-import axios, { type AxiosPromise } from "axios"
+import { type AxiosPromise } from "axios"
 import { useQuery } from "@tanstack/react-query";
-import type { ICheckin } from "../interface/ICheckin";
-import type { IIntensidade } from "../interface/IIntensidade";
-import type { DadoGrafico } from "../pages/Historico";
-import type { ITipoExercicio } from "../interface/ITipoExercicio";
+import type { ICheckin } from "../interfaces/ICheckin";
+import type { IIntensidade } from "../interfaces/IIntensidade";
+import type { DadoGrafico } from "../pages/historico/Historico";
+import type { ITipoExercicio } from "../interfaces/ITipoExercicio";
+import { api } from "./auth";
 
 const API_URL = "http://localhost:8080/checkin";
 type Periodo = "semana" | "mes" | "ano";
 
 const fetchData = async (): AxiosPromise<ICheckin[]> => {
-    return axios.get(API_URL + '/all');
+    return api.get(API_URL + '/all');
 }
 
 const fetchIntensidadesData = async (): AxiosPromise<IIntensidade[]> => {
-    return axios.get(API_URL + '/intensidades');
+    return api.get(API_URL + '/intensidades');
 }
 
 const fetchTempoTreinoData = async (periodo: Periodo): AxiosPromise<DadoGrafico[]> => {
-    return axios.get(`${API_URL}/tempo-treino`, {
+    return api.get(`${API_URL}/tempo-treino`, {
         params: { periodo }
     });
 };
 
 const fetchCaloriasTreinoData = async (periodo: Periodo): AxiosPromise<DadoGrafico[]> => {
-    return axios.get(`${API_URL}/calorias-treino`, {
+    return api.get(`${API_URL}/calorias-treino`, {
         params: { periodo }
     });
 };
 
 const fetchDadosExerciciosData = async (periodo: Periodo): AxiosPromise<DadoGrafico[]> => {
     console.log("fetchDadosExerciciosData chamado com periodo:", periodo);
-    return axios.get(`${API_URL}/dados-exercicios`, {
+    return api.get(`${API_URL}/dados-exercicios`, {
         params: { periodo }
     });
 };
 
 const fetchTiposExerciciosUsuarioData = async (): AxiosPromise<ITipoExercicio[]> => {
-    return axios.get(`${API_URL}/tipos-exercicios-usuario`);
+    return api.get(`${API_URL}/tipos-exercicios-usuario`);
 };
 
 export function useCheckin() {

@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { CardTreino } from "../components/treino/card-treino/card-treino";
-import { ModalCriarTreino } from "../components/treino/modal-criar-treino/modal-criar-treino";
-import { useGruposMusculares, useTiposExercicios, useTiposTreino, useTreino } from "../hooks/useTreino";
-import type { IGrupoMuscular } from "../interface/IGrupoMuscular";
-import type { ITipoExercicio } from "../interface/ITipoExercicio";
-import type { ITipoTreino } from "../interface/ITipoTreino";
-import type { ITreino } from "../interface/ITreino";
+import { CardTreino } from "../../components/treino/card-treino/card-treino";
+import { ModalCriarTreino } from "../../components/treino/modal-criar-treino/modal-criar-treino";
+import { useGruposMusculares, useTiposExercicios, useTiposTreino, useTreino } from "../../hooks/useTreino";
+import type { IGrupoMuscular } from "../../interfaces/IGrupoMuscular";
+import type { ITipoExercicio } from "../../interfaces/ITipoExercicio";
+import type { ITipoTreino } from "../../interfaces/ITipoTreino";
+import type { ITreino } from "../../interfaces/ITreino";
 
 
 export function Treino() {

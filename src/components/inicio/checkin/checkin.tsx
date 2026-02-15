@@ -1,6 +1,6 @@
 import { faDumbbell } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { ICheckin } from "../../../interface/ICheckin";
+import type { ICheckin } from "../../../interfaces/ICheckin";
 
 export interface CheckinProps {
     id: number;

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { GraficoPeriodos } from "../components/historico/grafico-periodos/grafico-periodos";
-import { useCaloriasTreino, useDadosExercicios, useTempoTreino } from "../hooks/useCheckin";
-import { GraficoExercicios } from "../components/historico/grafico-exercicios/grafico-exercicios";
+import { GraficoPeriodos } from "../../components/historico/grafico-periodos/grafico-periodos";
+import { useCaloriasTreino, useDadosExercicios, useTempoTreino } from "../../hooks/useCheckin";
+import { GraficoExercicios } from "../../components/historico/grafico-exercicios/grafico-exercicios";
 
 export type DadoGrafico = {
   id?: number;

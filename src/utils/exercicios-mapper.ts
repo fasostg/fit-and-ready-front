@@ -1,7 +1,7 @@
 import type { ExercicioProps } from "../components/treino/modal-criar-treino/modal-criar-treino";
-import type { IExercicio } from "../interface/IExercicio";
-import type { IGrupoMuscular } from "../interface/IGrupoMuscular";
-import type { ITipoExercicio } from "../interface/ITipoExercicio";
+import type { IExercicio } from "../interfaces/IExercicio";
+import type { IGrupoMuscular } from "../interfaces/IGrupoMuscular";
+import type { ITipoExercicio } from "../interfaces/ITipoExercicio";
 
 export function montarExercicio(exercicio: ExercicioProps, tiposExercicios: ITipoExercicio[], gruposMusculares: IGrupoMuscular[]): IExercicio {
     const idTipoExercicio: number | undefined = tiposExercicios.find(tipo => tipo.nome === exercicio.tipoExercicio)?.id

@@ -1,23 +1,24 @@
-import axios, { type AxiosPromise } from "axios"
-import type { IReceita } from "../interface/IReceita";
+import { type AxiosPromise } from "axios"
+import type { IReceita } from "../interfaces/IReceita";
 import { useQuery } from "@tanstack/react-query";
-import type { ITipoRefeicao } from "../interface/ITipoRefeicao";
-import type { IIngrediente } from "../interface/IIngrediente";
+import type { ITipoRefeicao } from "../interfaces/ITipoRefeicao";
+import type { IIngrediente } from "../interfaces/IIngrediente";
+import { api } from "./auth";
 
 const API_URL = "http://localhost:8080/nutricao";
 
 const fetchData = async (): AxiosPromise<IReceita[]> => {
-    const response = axios.get(API_URL + '/all')
+    const response = api.get(API_URL + '/all')
     return response;
 }
 
 const fetchTiposRefeicaoData = async (): AxiosPromise<ITipoRefeicao[]> => {
-    const response = axios.get(API_URL + '/tipos-refeicao')
+    const response = api.get(API_URL + '/tipos-refeicao')
     return response;
 }
 
 const fetchIngredientesData = async (): AxiosPromise<IIngrediente[]> => {
-    const response = axios.get(API_URL + '/ingredientes')
+    const response = api.get(API_URL + '/ingredientes')
     return response;
 }
 

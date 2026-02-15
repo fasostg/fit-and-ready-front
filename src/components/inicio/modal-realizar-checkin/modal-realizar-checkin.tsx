@@ -4,11 +4,11 @@ import { useState } from "react";
 import { useCheckinMutate } from "../../../hooks/useCheckinMutate";
 import { InputNumber } from "../../shared/input-number/input-number";
 import { Select } from "../../shared/select/select";
-import type { ITreino } from "../../../interface/ITreino";
+import type { ITreino } from "../../../interfaces/ITreino";
 import "./modal-realizar-checkin.css";
 import { CheckinExerciciosTable } from "../checkin-exercicios-table/checkin-exercicios-table";
-import type { ICheckin } from "../../../interface/ICheckin";
-import type { IIntensidade } from "../../../interface/IIntensidade";
+import type { ICheckin } from "../../../interfaces/ICheckin";
+import type { IIntensidade } from "../../../interfaces/IIntensidade";
 
 interface ModalRealizarCheckinProps {
     treinos: ITreino[];

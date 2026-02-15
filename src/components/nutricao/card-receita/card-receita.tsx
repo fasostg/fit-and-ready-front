@@ -4,9 +4,10 @@ import "./card-receita.css"
 import { useState } from "react";
 import { ModalDeletarReceita } from "../modal-deletar-receita/modal-deletar-receita";
 import { ModalCriarReceita } from "../modal-criar-receita/modal-criar-receita";
-import type { IReceita } from "../../../interface/IReceita";
-import type { ITipoRefeicao } from "../../../interface/ITipoRefeicao";
-import type { IIngrediente } from "../../../interface/IIngrediente";
+import { ModalModoPreparo } from "../modal-modo-preparo/modal-modo-preparo";
+import type { IReceita } from "../../../interfaces/IReceita";
+import type { ITipoRefeicao } from "../../../interfaces/ITipoRefeicao";
+import type { IIngrediente } from "../../../interfaces/IIngrediente";
 
 interface CardReceitaProps {
     receita: IReceita,
@@ -18,6 +19,7 @@ interface CardReceitaProps {
 export function CardReceita({ receita, tiposRefeicao, ingredientes, closeModal } : CardReceitaProps) {
     const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
     const [isModalEditOpen, setIsModalEditOpen] = useState(false);
+    const [isModalModoPreparoOpen, setIsModalModoPreparoOpen] = useState(false);
 
     const handleDeleteReceita = () => {
         setIsModalDeleteOpen(prev => !prev);
@@ -25,6 +27,10 @@ export function CardReceita({ receita, tiposRefeicao, ingredientes, closeModal }
 
     const handleEditReceita = () => {
         setIsModalEditOpen(prev => !prev);
+    }
+
+    const handleModalModoPreparo = () => {
+        setIsModalModoPreparoOpen(prev => !prev);
     }
 
     
@@ -73,16 +79,14 @@ export function CardReceita({ receita, tiposRefeicao, ingredientes, closeModal }
                 </div>
 
                 <div className="flex flex-col justify-center gap-2">
-                    <button className="btn-primary text-sm">
-                        Ingredientes
-                    </button>
-                    <button className="btn-primary text-sm">
+                    <button className="btn-primary text-sm" onClick={handleModalModoPreparo}>
                         Modo de preparo
                     </button>
                 </div>
             </div>
             {isModalEditOpen && <ModalCriarReceita receita={receita} tiposRefeicao={tiposRefeicao} ingredientes={ingredientes} closeModal={handleEditReceita}/>}
             {isModalDeleteOpen && <ModalDeletarReceita idReceita={receita.id} closeModal={handleDeleteReceita}/>}
+            {isModalModoPreparoOpen && <ModalModoPreparo modoPreparo={receita.modoPreparo} ingredientes={receita.ingredientesReceita} closeModal={handleModalModoPreparo}/>}
         </>
     )
 }

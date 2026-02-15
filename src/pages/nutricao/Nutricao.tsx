@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { useIngredientes, useReceita, useTiposRefeicao } from "../hooks/useReceita";
-import type { IReceita } from "../interface/IReceita";
-import { CardInfo } from "../components/inicio/card-info/card-info";
-import { CardReceita } from "../components/nutricao/card-receita/card-receita";
-import { ModalCriarReceita } from "../components/nutricao/modal-criar-receita/modal-criar-receita";
+import { useIngredientes, useReceita, useTiposRefeicao } from "../../hooks/useReceita";
+import type { IReceita } from "../../interfaces/IReceita";
+import { CardInfo } from "../../components/inicio/card-info/card-info";
+import { CardReceita } from "../../components/nutricao/card-receita/card-receita";
+import { ModalCriarReceita } from "../../components/nutricao/modal-criar-receita/modal-criar-receita";
 import { faBowlFood, faDroplet, faEgg, faFire } from "@fortawesome/free-solid-svg-icons";
-import { NutricaoEnum } from "../models/NutricaoEnum";
-import type { ITipoRefeicao } from "../interface/ITipoRefeicao";
-import type { IIngrediente } from "../interface/IIngrediente";
-import { roundToDecimal } from "../utils/number-utils";
+import { NutricaoEnum } from "../../models/NutricaoEnum";
+import type { ITipoRefeicao } from "../../interfaces/ITipoRefeicao";
+import type { IIngrediente } from "../../interfaces/IIngrediente";
+import { roundToDecimal } from "../../utils/number-utils";
 
 function ordenarIngredientes(ingredientesData?: IIngrediente[]): IIngrediente[] {
     if (!ingredientesData) {

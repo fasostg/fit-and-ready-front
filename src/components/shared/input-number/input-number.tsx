@@ -3,11 +3,12 @@ import { useMask } from "@react-input/mask";
 interface InputNumberProps {
     label?: string;
     value?: string;
+    placeholder?: string;
     updateValue(value?: unknown, valueObject?: unknown): void;
     valueObject?: unknown;
 }
 
-export function InputNumber({ label, value, updateValue, valueObject }: InputNumberProps) {
+export function InputNumber({ label, value, placeholder, updateValue, valueObject }: InputNumberProps) {
 
     const inputRef = useMask({
         mask: "___",
@@ -37,13 +38,14 @@ export function InputNumber({ label, value, updateValue, valueObject }: InputNum
     }
 
     return (
-        <div>
+        <div className="flex flex-col">
             {label != null && 
                 <label className="input-container-label">{label}</label>
             }
             <input
                 ref={inputRef}
                 value={value}
+                placeholder={placeholder}
                 onChange={e => handleChange(e.target.value)}
             />
         </div>

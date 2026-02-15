@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { CardInfo } from "../components/inicio/card-info/card-info";
-import { Checkin } from "../components/inicio/checkin/checkin";
-import { ModalRealizarCheckin } from "../components/inicio/modal-realizar-checkin/modal-realizar-checkin";
-import { useCheckin, useIntensidade } from "../hooks/useCheckin";
-import type { ICheckin } from "../interface/ICheckin";
-import type { ITreino } from "../interface/ITreino";
-import { useTreino } from "../hooks/useTreino";
+import { CardInfo } from "../../components/inicio/card-info/card-info";
+import { Checkin } from "../../components/inicio/checkin/checkin";
+import { ModalRealizarCheckin } from "../../components/inicio/modal-realizar-checkin/modal-realizar-checkin";
+import { useCheckin, useIntensidade } from "../../hooks/useCheckin";
+import type { ICheckin } from "../../interfaces/ICheckin";
+import type { ITreino } from "../../interfaces/ITreino";
+import { useTreino } from "../../hooks/useTreino";
 import { faChartSimple, faClock, faFire, faPersonRunning } from "@fortawesome/free-solid-svg-icons";
-import type { IIntensidade } from "../interface/IIntensidade";
+import type { IIntensidade } from "../../interfaces/IIntensidade";
 
 
 export function Inicio() {

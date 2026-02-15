@@ -1,6 +1,6 @@
 import type { IngredienteReceitaProps } from "../components/nutricao/modal-criar-receita/modal-criar-receita";
-import type { IIngrediente } from "../interface/IIngrediente";
-import type { IIngredienteReceita } from "../interface/IIngredienteReceita";
+import type { IIngrediente } from "../interfaces/IIngrediente";
+import type { IIngredienteReceita } from "../interfaces/IIngredienteReceita";
 
 export function montarIngredientesReceita(
     ingredienteReceita: IngredienteReceitaProps, 

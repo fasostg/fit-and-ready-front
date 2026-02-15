@@ -3,10 +3,11 @@ import './App.css';
 import { Route, Routes } from 'react-router-dom';
 
 import { Header } from './components/shared/header/header';
-import { Historico } from './pages/Historico';
-import { Inicio } from './pages/Inicio';
-import { Nutricao } from './pages/Nutricao';
-import { Treino } from './pages/Treino';
+import { Historico } from './pages/historico/Historico';
+import { Inicio } from './pages/inicio/Inicio';
+import { Nutricao } from './pages/nutricao/Nutricao';
+import { Treino } from './pages/treino/Treino';
+import { PrivateRoute } from './components/login/private-route/private-route';
 
 function App() {
   return (
@@ -14,10 +15,10 @@ function App() {
       <div>
         <Header />
         <Routes>
-          <Route path="/inicio" element={<Inicio />}/>
-          <Route path="/treino" element={<Treino />}/>
-          <Route path="/historico" element={<Historico />}/>
-          <Route path="/nutricao" element={<Nutricao />}/>
+          <Route path="/inicio" element={<PrivateRoute> <Inicio /> </PrivateRoute>}/>
+          <Route path="/treino" element={<PrivateRoute> <Treino /> </PrivateRoute>}/>
+          <Route path="/historico" element={<PrivateRoute> <Historico /> </PrivateRoute>}/>
+          <Route path="/nutricao" element={<PrivateRoute> <Nutricao /> </PrivateRoute>}/>
         </Routes>
       </div>
     </div>

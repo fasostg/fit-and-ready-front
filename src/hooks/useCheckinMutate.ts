@@ -1,11 +1,12 @@
-import axios, { type AxiosPromise } from "axios"
+import { type AxiosPromise } from "axios"
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { ICheckin } from "../interface/ICheckin";
+import type { ICheckin } from "../interfaces/ICheckin";
+import { api } from "./auth";
 
 const API_URL = "http://localhost:8080/checkin";
 
 const postData = async (data: ICheckin): AxiosPromise<unknown> => {
-    const response = axios.post(API_URL, data)
+    const response = api.post(API_URL, data)
     return response;
 }
 

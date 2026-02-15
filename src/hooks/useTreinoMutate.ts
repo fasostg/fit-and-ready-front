@@ -1,21 +1,22 @@
-import axios, { type AxiosPromise } from "axios"
+import { type AxiosPromise } from "axios"
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { ITreino } from "../interface/ITreino";
+import type { ITreino } from "../interfaces/ITreino";
+import { api } from "./auth";
 
 const API_URL = "http://localhost:8080/treino";
 
 const postData = async (data: ITreino): AxiosPromise<unknown> => {
-    const response = axios.post(API_URL, data)
+    const response = api.post(API_URL, data)
     return response;
 }
 
 const deleteData = async (idTreino?: number): AxiosPromise<unknown> => {
-    const response = axios.delete(API_URL + `/${idTreino}`)
+    const response = api.delete(API_URL + `/${idTreino}`)
     return response;
 }
 
 const patchData = async (data: ITreino): AxiosPromise<unknown> => {
-    const response = axios.patch(API_URL, data)
+    const response = api.patch(API_URL, data)
     return response;
 }
 
@@ -25,7 +26,6 @@ export function useTreinoMutate() {
         mutationFn: postData,
         retry: 2,
         onSuccess: () => {
-            //invalida a os dados buscados com chave receita-data para forçar um novo fetch
             queryClient.invalidateQueries({ queryKey: ['treino-data'] }); 
         }
     })
@@ -39,7 +39,6 @@ export function useTreinoDelete() {
         mutationFn: deleteData,
         retry: 2,
         onSuccess: () => {
-            //invalida a os dados buscados com chave receita-data para forçar um novo fetch
             queryClient.invalidateQueries({ queryKey: ['treino-data'] }); 
         }
     })
@@ -53,7 +52,6 @@ export function useTreinoUpdate() {
         mutationFn: patchData,
         retry: 2,
         onSuccess: () => {
-            //invalida a os dados buscados com chave receita-data para forçar um novo fetch
             queryClient.invalidateQueries({ queryKey: ['treino-data'] }); 
         }
     })

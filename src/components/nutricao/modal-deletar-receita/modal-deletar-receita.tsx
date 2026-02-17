@@ -10,7 +10,7 @@ interface ModalDeletarReceitaProps {
 }
 
 export function ModalDeletarReceita({ idReceita, closeModal }: ModalDeletarReceitaProps) {
-    const {mutate, isSuccess, isPending} = useReceitaDelete()
+    const {mutate} = useReceitaDelete()
     
     const submit = () => {
         try {

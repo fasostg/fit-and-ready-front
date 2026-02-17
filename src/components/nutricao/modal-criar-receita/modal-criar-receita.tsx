@@ -160,7 +160,7 @@ export function ModalCriarReceita({ receita, tiposRefeicao, ingredientes, closeM
                         <Select label="Tipo de refeição" value={tipoRefeicao} options={tiposRefeicao} updateValue={(value) => setTipoRefeicao(String(value) || "")}/>
                     </div>
                     <div className="col-span-3">
-                        <InputNumber label="Tempo de preparo" value={tempoPreparo} updateValue={(value) => setTempoPreparo(String(value) || "")}/>
+                        <InputNumber label="Tempo de preparo" value={String(tempoPreparo)} updateValue={(value) => setTempoPreparo(String(value) || "")}/>
                     </div>
                     <div className="col-span-12">
                         <TextArea label="Modo de Preparo" value={modoPreparo} updateValue={(value) => setModoPreparo(value || "")}/>

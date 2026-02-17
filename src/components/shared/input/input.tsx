@@ -3,11 +3,12 @@ interface InputProps {
     value?: string | number;
     placeholder?: string;
     type?: string;
+    maxLength?: number;
     updateValue(value?: string, valueObject?: object): void;
     valueObject?: unknown;
 }
 
-export function Input({ label, value, placeholder, type, updateValue, valueObject }: InputProps) {
+export function Input({ label, value, placeholder, type, maxLength, updateValue, valueObject }: InputProps) {
 
     const handleChange = (newValue?: string) => {
         const normalizedValue = newValue ?? "";
@@ -28,6 +29,7 @@ export function Input({ label, value, placeholder, type, updateValue, valueObjec
                 type={type} 
                 value={value} 
                 placeholder={placeholder}
+                maxLength={maxLength}
                 onChange={e => handleChange(e.target.value)}>
             </input>
         </div>

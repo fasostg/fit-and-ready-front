@@ -1,3 +1,4 @@
+import type { AxiosError } from "axios";
 import { api } from "./auth";  // Import from auth.ts
 import { useMutation } from "@tanstack/react-query";
 
@@ -7,17 +8,21 @@ interface LoginData {
 }
 
 const postLogin = async (data: LoginData) => {
-  return api.post("/auth/login", data);  // Use api instead of axios
+  return api.post("/login", data);  // Use api instead of axios
 };
 
 export function useLoginMutate() {
+  console.log("ENTROU LOGIN MUTATE")
   const mutate = useMutation({
     mutationFn: postLogin,
-    retry: 2,
+    retry: 1,
     onSuccess: (res) => {
-      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("token", res.data);
       globalThis.location.href = "/inicio";
     },
+    onError: (e: AxiosError) => {
+      alert(e.response?.data);
+    }
   });
 
   return mutate;

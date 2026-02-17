@@ -1,5 +1,5 @@
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import type { DadoGrafico, Periodo } from "../../../pages/Historico";
+import type { DadoGrafico, Periodo } from "../../../pages/historico/Historico";
 
 interface GraficoPeriodosProps {
   titulo: string;

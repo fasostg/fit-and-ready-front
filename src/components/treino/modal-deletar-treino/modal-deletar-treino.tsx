@@ -9,7 +9,7 @@ interface ModalDeletarTreinoProps {
 }
 
 export function ModalDeletarTreino({ idTreino, closeModal }: ModalDeletarTreinoProps) {
-    const {mutate, isSuccess, isPending} = useTreinoDelete()
+    const {mutate} = useTreinoDelete()
     
     const submit = () => {
         try {

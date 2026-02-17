@@ -45,15 +45,15 @@ export function ModalCriarTreino({ treino, tiposTreino, gruposMusculares, tiposE
     const [numeroSeries, setNumeroSeries] = useState();
     const [numeroRepeticoes, setNumeroRepeticoes] = useState();
     
-    const {mutate, isSuccess, isPending} = useTreinoMutate()
-    const {mutate: mutateUpdate, isSuccess: isSuccessUpdate, isPending: isPendingUpdate} = useTreinoUpdate()
+    const {mutate} = useTreinoMutate()
+    const {mutate: mutateUpdate} = useTreinoUpdate()
 
     useEffect(() => {
     }, []);
 
     
     const getTiposExerciciosByGrupo = (nomeGrupoMuscular: string) => {
-        return tiposExercicios.filter(tipo => tipo.grupoMuscular.nome == nomeGrupoMuscular);
+        return tiposExercicios.filter(tipo => tipo?.grupoMuscular?.nome == nomeGrupoMuscular);
     }
 
     const [tiposExerciciosByGrupo, setTiposExerciciosByGrupo] = useState(getTiposExerciciosByGrupo(grupoMuscular))

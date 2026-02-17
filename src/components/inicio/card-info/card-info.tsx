@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import logo from '../../../assets/logo-text.png';
 import "./card-info.css";
 import type { IconProp } from '@fortawesome/fontawesome-svg-core';
 

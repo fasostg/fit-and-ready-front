@@ -1,6 +1,6 @@
-import { Bar, BarChart, CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useEffect, useState } from "react";
-import type { DadoGrafico, Periodo } from "../../../pages/Historico";
+import type { DadoGrafico, Periodo } from "../../../pages/historico/Historico";
 import { Select } from "../../shared/select/select";
 import { TipoExercicioOption } from "../../../models/TipoExercicioOption";
 

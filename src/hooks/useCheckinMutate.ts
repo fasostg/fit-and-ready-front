@@ -11,6 +11,7 @@ const postData = async (data: ICheckin): AxiosPromise<unknown> => {
 }
 
 export function useCheckinMutate() {
+    console.log("useCheckinMutate chamado");
     const queryClient = useQueryClient();
     const mutate = useMutation({
         mutationFn: postData,
@@ -20,6 +21,7 @@ export function useCheckinMutate() {
             queryClient.invalidateQueries({ queryKey: ['checkin-data'] }); 
         }
     })
-
+    
+    console.log("useCheckinMutate mutate", mutate);
     return mutate;
 }

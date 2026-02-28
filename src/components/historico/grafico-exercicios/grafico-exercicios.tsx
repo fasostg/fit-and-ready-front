@@ -37,7 +37,7 @@ export function GraficoExercicios({ dados, isLoading, periodo, setPeriodo }: Gra
     }
 
     return (
-        <div className="bg-white rounded-xl shadow-md p-6 min-w-3xl">
+        <div className="bg-white rounded-xl shadow-md p-6 min-w-4xl">
             <Select 
                 value={tipoExercicio} 
                 options={tiposExercicios} 
@@ -45,16 +45,12 @@ export function GraficoExercicios({ dados, isLoading, periodo, setPeriodo }: Gra
                 classname="border border-stone-400 rounded-md p-2 shadow-sm w-full mb-4"
             />
 
-            {/* Header */}
             <div className="mt-6">
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="font-semibold text-lg">
                         Carga (em kg) por tipo de exercício
                     </h2>
-                </div>
-                <div className="flex justify-between items-center mb-4">
-        
-                    {/* Toggle */}
+
                     <div className="flex bg-indigo-100 rounded-lg overflow-hidden">
                     {(["semana", "mes", "ano"] as Periodo[]).map((p) => (
                         <button

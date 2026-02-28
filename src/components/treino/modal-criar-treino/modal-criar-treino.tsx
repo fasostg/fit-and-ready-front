@@ -34,10 +34,12 @@ interface ModalCriarTreinoProps {
 }
 
 export function ModalCriarTreino({ treino, tiposTreino, gruposMusculares, tiposExercicios, closeModal }: ModalCriarTreinoProps) {
-    const isEdicao = useState(!!treino);
+    const [isEdicao] = useState(treino != null);
     const [nomeTreino, setNomeTreino] = useState(treino?.nome);
     const [tipoTreino, setTipoTreino] = useState(treino?.tipoTreino?.nome || tiposTreino[0].nome);
     const [dataInicio, setDataInicio] = useState(formatDate(treino?.dataInicio));
+    console.log("TREINO => ", treino);
+    console.log("EDICAO => ", isEdicao);
 
     const [exercicios, setExercicios] = useState<ExercicioProps[]>(recuperarExercicios(treino?.exercicios));
     const [grupoMuscular, setGrupoMuscular] = useState(gruposMusculares[0].nome);
@@ -152,7 +154,8 @@ export function ModalCriarTreino({ treino, tiposTreino, gruposMusculares, tiposE
                 console.log("CRIAR TREINO", treinoData);
                 mutate(treinoData);
             }
-            // closeModal();
+            
+            closeModal();
         } catch (error) {
             alert("Erro ao processar exercícios: " + (error instanceof Error ? error.message : "Desconhecido"));
         }

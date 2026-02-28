@@ -110,7 +110,7 @@ html, body {
 .modal-overlay .modal-body label {
     color: #242424;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 0px;
     font-size: 18px;
 }
 

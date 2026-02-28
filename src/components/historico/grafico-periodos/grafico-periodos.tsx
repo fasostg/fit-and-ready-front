@@ -11,14 +11,12 @@ interface GraficoPeriodosProps {
 
 export function GraficoPeriodos({ titulo, dados, isLoading, periodo, setPeriodo }: GraficoPeriodosProps) {
     return (
-        <div className="bg-white rounded-xl shadow-md p-6 min-w-xl">
-            {/* Header */}
+        <div className="bg-white rounded-xl shadow-md p-6 min-w-2xl">
             <div className="flex justify-between items-center mb-4">
                 <h2 className="font-semibold text-lg">
                     {titulo}
                 </h2>
     
-                {/* Toggle */}
                 <div className="flex bg-indigo-100 rounded-lg overflow-hidden">
                 {(["semana", "mes", "ano"] as Periodo[]).map((p) => (
                     <button

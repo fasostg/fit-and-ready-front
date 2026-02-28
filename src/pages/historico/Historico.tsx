@@ -50,7 +50,7 @@ export function Historico() {
         />
       </div>
 
-      <div className="flex w-full mt-8">
+      <div className="flex justify-center w-full mt-8 mb-8">
         <GraficoExercicios 
           dados={dadosPorExercicioTreino} 
           isLoading={isLoadingExercicioTreino} 

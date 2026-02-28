@@ -1,6 +1,6 @@
 import './App.css';
 
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 
 import { Header } from './components/shared/header/header';
 import { Historico } from './pages/historico/Historico';
@@ -15,6 +15,7 @@ function App() {
       <div>
         <Header />
         <Routes>
+          <Route path="/" element={<Navigate to="/inicio" replace />}/>
           <Route path="/inicio" element={<PrivateRoute> <Inicio /> </PrivateRoute>}/>
           <Route path="/treino" element={<PrivateRoute> <Treino /> </PrivateRoute>}/>
           <Route path="/historico" element={<PrivateRoute> <Historico /> </PrivateRoute>}/>

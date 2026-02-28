@@ -17,7 +17,6 @@ interface ModalRealizarCheckinProps {
 }
 
 export function ModalRealizarCheckin({ treinos, intensidades, closeModal }: ModalRealizarCheckinProps) {
-    console.log("intensidades no modal:", intensidades);
     const [treino, setTreino] = useState(treinos[0]?.nome || "");
     const [tempoTreino, setTempoTreino] = useState("");
     const [peso, setPeso] = useState("");
@@ -47,12 +46,8 @@ export function ModalRealizarCheckin({ treinos, intensidades, closeModal }: Moda
             return;
         }
 
-        console.log("******************************")
-        console.log("INTENSIDADE", intensidade)
-        //criar método para setar calorias
         const idTreino = treinos.find(t => t.nome === treino)?.id;
         const idIntensidade = intensidades.find(i => i.nome === intensidade)?.id;
-        console.log("ID INTENSIDADE", idIntensidade)
         const checkin: ICheckin = {
             idTreino: idTreino,
             tempoTreino: Number(tempoTreino),
@@ -61,6 +56,7 @@ export function ModalRealizarCheckin({ treinos, intensidades, closeModal }: Moda
             exercicios: exercicios
         }
 
+        console.log("Checkin a ser enviado:", checkin);
         mutate(checkin);
         closeModal();
     }

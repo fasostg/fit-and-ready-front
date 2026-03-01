@@ -89,7 +89,7 @@ export function Nutricao() {
             </div>
 
             <div className="flex flex-col items-center">
-                <p className="btn-primary mb-4">{data.length} {data.length == 1 ? "receita criada" : "receitas criadas"}</p> 
+                <p className="receita-tag mb-4">{data.length} {data.length == 1 ? "receita criada" : "receitas criadas"}</p> 
                 
                 <div className="mb-20 flex justify-center">
                     <div className="card-grid">

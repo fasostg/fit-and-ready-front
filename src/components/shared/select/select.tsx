@@ -17,6 +17,7 @@ export function Select({ label, value, options, updateValue, classname }: Select
       <label className="input-container-label">{label}</label>
       <div>
         <select value={value} onChange={(e) => updateValue(e.target.value)} className={classname + " cursor-pointer"}>
+          <option value="" disabled selected hidden>Selecione o tipo</option>
           {options?.map((opt) => (
             <option key={opt.id} value={opt.nome}>
               {opt.nome}

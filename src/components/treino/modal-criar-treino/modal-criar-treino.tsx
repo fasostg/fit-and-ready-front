@@ -36,6 +36,7 @@ interface ModalCriarTreinoProps {
 export function ModalCriarTreino({ treino, tiposTreino, gruposMusculares, tiposExercicios, closeModal }: ModalCriarTreinoProps) {
     const [isEdicao] = useState(treino != null);
     const [nomeTreino, setNomeTreino] = useState(treino?.nome);
+    console.log("tiposTreino", tiposTreino)
     const [tipoTreino, setTipoTreino] = useState(treino?.tipoTreino?.nome || tiposTreino[0].nome);
     const [dataInicio, setDataInicio] = useState(formatDate(treino?.dataInicio));
     console.log("TREINO => ", treino);

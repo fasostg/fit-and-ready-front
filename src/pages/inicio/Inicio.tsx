@@ -90,7 +90,7 @@ export function Inicio() {
                 
                 <div className="w-7/10">
                     <div className="w-full flex justify-between items-center ml-5">
-                        <h2 className="font-bold text-xl">Treinos recentes</h2>
+                        <h2 className="font-bold text-xl">Check-ins recentes</h2>
                         <button onClick={handleOpenModalCheckin} className="mr-16 btn-primary">Realizar Check-in</button>
                     </div>
                 </div>

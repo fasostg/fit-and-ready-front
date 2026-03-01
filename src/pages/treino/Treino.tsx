@@ -30,12 +30,19 @@ export function Treino() {
                 <p className="font-normal text-xl mb-2">Crie, atualize e remova treinos atuais</p>
             </div>
             <div className="mb-20 flex flex-col justify-center items-center">
-                <div className="w-full flex justify-between mb-5">
+                <div className="w-full flex justify-between items-end mb-5">
                     <h5 className="font-bold text-xl">Treinos atuais</h5>
                     <button onClick={handleOpenModalAddTreino} className=" btn-primary">Adicionar Treino</button>
                 </div>
-                <div className="grid grid-cols-3 gap-4">
-                    { treinosAtivos.map(treino => <CardTreino treino={treino} tiposTreino={tiposTreinoData} gruposMusculares={gruposMuscularesData} tiposExercicios={tiposExerciciosData} />) }
+                <div className="w-full grid grid-cols-3 gap-4">
+                    { treinosAtivos?.length == 0 && 
+                        <p className="flex justify-start items-start">
+                            Nenhum treino ativo
+                        </p> 
+                    }
+                    { treinosAtivos?.length > 0 && 
+                        treinosAtivos.map(treino => <CardTreino treino={treino} tiposTreino={tiposTreinoData} gruposMusculares={gruposMuscularesData} tiposExercicios={tiposExerciciosData} />) 
+                    }
                 </div>
             </div>
 
@@ -45,8 +52,15 @@ export function Treino() {
                 <div className="w-full flex justify-between items-end mb-5">
                     <h5 className="font-bold text-xl">Treinos anteriores</h5>
                 </div>
-                <div className="grid grid-cols-3 gap-4">
-                    { treinosInativos.map(treino => <CardTreino treino={treino} tiposTreino={tiposTreinoData} gruposMusculares={gruposMuscularesData} tiposExercicios={tiposExerciciosData} />) }
+                <div className="w-full grid grid-cols-3 gap-4">
+                    { treinosAtivos?.length == 0 && 
+                        <p className="flex justify-start items-start">
+                            Nenhum treino anterior
+                        </p> 
+                    }
+                    { treinosAtivos?.length > 0 && 
+                        treinosInativos.map(treino => <CardTreino treino={treino} tiposTreino={tiposTreinoData} gruposMusculares={gruposMuscularesData} tiposExercicios={tiposExerciciosData} />) 
+                    }
                 </div>
             </div>
 

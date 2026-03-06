@@ -28,16 +28,14 @@ interface ModalCreateReceitaProps {
 }
 
 export function ModalCriarReceita({ receita, tiposRefeicao, ingredientes, closeModal }: ModalCreateReceitaProps) {
-    const isEdicao = useState(!!receita);
+    const [isEdicao] = useState(!!receita);
     const [nome, setNome] = useState(receita?.nome || "");
     const [modoPreparo, setModoPreparo] = useState(receita?.modoPreparo || "");
     const [tempoPreparo, setTempoPreparo] = useState(receita?.tempoPreparo || "");
     const [tipoRefeicao, setTipoRefeicao] = useState(receita?.tipoRefeicao?.nome || tiposRefeicao[0]?.nome || "");
 
-    console.log("RECEITA =>", receita)
     const [ingredientesReceita, setIngredientesReceita] = 
         useState<IngredienteReceitaProps[]>(recuperarIngredientesReceita(receita?.ingredientesReceita));
-    console.log("ingredientesReceita =>", ingredientesReceita)
     const [ingredienteSelecionado, setIngredienteSelecionado] = useState(ingredientes[0]?.nome || "");
     const [quantidade, setQuantidade] = useState("");
     const { mutate, isSuccess, isPending } = useReceitaMutate();
@@ -118,7 +116,6 @@ export function ModalCriarReceita({ receita, tiposRefeicao, ingredientes, closeM
                     nome: tipoRefeicao
                 }
             }
-            console.log(receitaData)
 
             if (isEdicao) {
                 mutateUpdate(receitaData)

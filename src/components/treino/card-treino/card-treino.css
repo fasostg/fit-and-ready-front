@@ -8,8 +8,9 @@
 }
 
 .card-info .card-icon {
-    width: 4.5rem;
-    height: 2rem;
+    width: 3rem;
+    height: 2.5rem;
+    background-color: white;
     margin-top: 1rem;
     margin-bottom: 1rem;
 }

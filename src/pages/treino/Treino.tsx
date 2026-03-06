@@ -41,7 +41,15 @@ export function Treino() {
                         </p> 
                     }
                     { treinosAtivos?.length > 0 && 
-                        treinosAtivos.map(treino => <CardTreino treino={treino} tiposTreino={tiposTreinoData} gruposMusculares={gruposMuscularesData} tiposExercicios={tiposExerciciosData} />) 
+                        treinosAtivos.map(treino => 
+                            <div className="flex justify-start items-start">
+                                <CardTreino 
+                                    treino={treino} 
+                                    tiposTreino={tiposTreinoData} 
+                                    gruposMusculares={gruposMuscularesData} 
+                                    tiposExercicios={tiposExerciciosData} />
+                            </div>
+                        ) 
                     }
                 </div>
             </div>
@@ -53,12 +61,12 @@ export function Treino() {
                     <h5 className="font-bold text-xl">Treinos anteriores</h5>
                 </div>
                 <div className="w-full grid grid-cols-3 gap-4">
-                    { treinosAtivos?.length == 0 && 
+                    { treinosInativos?.length == 0 && 
                         <p className="flex justify-start items-start">
                             Nenhum treino anterior
                         </p> 
                     }
-                    { treinosAtivos?.length > 0 && 
+                    { treinosInativos?.length > 0 && 
                         treinosInativos.map(treino => <CardTreino treino={treino} tiposTreino={tiposTreinoData} gruposMusculares={gruposMuscularesData} tiposExercicios={tiposExerciciosData} />) 
                     }
                 </div>

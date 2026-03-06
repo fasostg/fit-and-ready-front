@@ -30,7 +30,6 @@ const fetchCaloriasTreinoData = async (periodo: Periodo): AxiosPromise<DadoGrafi
 };
 
 const fetchDadosExerciciosData = async (periodo: Periodo): AxiosPromise<DadoGrafico[]> => {
-    console.log("fetchDadosExerciciosData chamado com periodo:", periodo);
     return api.get(`${API_URL}/dados-exercicios`, {
         params: { periodo }
     });
@@ -67,7 +66,6 @@ export function useIntensidade() {
 }
 
 export function useTempoTreino(periodo: Periodo) {
-    console.log("useTempoTreino chamado com periodo:", periodo);
     const query = useQuery({
         queryFn: () => fetchTempoTreinoData(periodo),
         queryKey: ["tempo-treino-data", periodo],
@@ -81,7 +79,6 @@ export function useTempoTreino(periodo: Periodo) {
 }
 
 export function useCaloriasTreino(periodo: Periodo) {
-    console.log("useCaloriasTreino chamado com periodo:", periodo);
     const query = useQuery({
         queryFn: () => fetchCaloriasTreinoData(periodo),
         queryKey: ["calorias-treino-data", periodo],
@@ -95,7 +92,6 @@ export function useCaloriasTreino(periodo: Periodo) {
 }
 
 export function useDadosExercicios(periodo: Periodo) {
-    console.log("useDadosExercicios chamado com periodo:", periodo);
     const query = useQuery({
         queryFn: () => fetchDadosExerciciosData(periodo),
         queryKey: ["dados-exercicios-data", periodo],

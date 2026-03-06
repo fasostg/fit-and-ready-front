@@ -56,7 +56,6 @@ export function ModalRealizarCheckin({ treinos, intensidades, closeModal }: Moda
             exercicios: exercicios
         }
 
-        console.log("Checkin a ser enviado:", checkin);
         mutate(checkin);
         closeModal();
     }

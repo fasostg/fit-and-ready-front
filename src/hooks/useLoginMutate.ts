@@ -12,7 +12,6 @@ const postLogin = async (data: LoginData) => {
 };
 
 export function useLoginMutate() {
-  console.log("ENTROU LOGIN MUTATE")
   const mutate = useMutation({
     mutationFn: postLogin,
     retry: 1,

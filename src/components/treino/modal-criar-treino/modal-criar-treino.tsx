@@ -36,11 +36,8 @@ interface ModalCriarTreinoProps {
 export function ModalCriarTreino({ treino, tiposTreino, gruposMusculares, tiposExercicios, closeModal }: ModalCriarTreinoProps) {
     const [isEdicao] = useState(treino != null);
     const [nomeTreino, setNomeTreino] = useState(treino?.nome);
-    console.log("tiposTreino", tiposTreino)
     const [tipoTreino, setTipoTreino] = useState(treino?.tipoTreino?.nome || tiposTreino[0].nome);
     const [dataInicio, setDataInicio] = useState(formatDate(treino?.dataInicio));
-    console.log("TREINO => ", treino);
-    console.log("EDICAO => ", isEdicao);
 
     const [exercicios, setExercicios] = useState<ExercicioProps[]>(recuperarExercicios(treino?.exercicios));
     const [grupoMuscular, setGrupoMuscular] = useState(gruposMusculares[0].nome);
@@ -149,10 +146,8 @@ export function ModalCriarTreino({ treino, tiposTreino, gruposMusculares, tiposE
             }
 
             if (isEdicao) {
-                console.log("EDITAR TREINO", treinoData);
-                //mutateUpdate(treinoData);
+                mutateUpdate(treinoData);
             } else {
-                console.log("CRIAR TREINO", treinoData);
                 mutate(treinoData);
             }
             
@@ -167,7 +162,8 @@ export function ModalCriarTreino({ treino, tiposTreino, gruposMusculares, tiposE
     return (
         <div className="modal-overlay">
             <div className="modal-header">
-                <h2>Criar Treino</h2>
+                {isEdicao && <h2>Editar Treino</h2>}
+                {!isEdicao && <h2>Criar Treino</h2>}
                 <FontAwesomeIcon icon={faXmark} onClick={closeModal} className="clickable-icon"/>
             </div>
             <div className="modal-body">

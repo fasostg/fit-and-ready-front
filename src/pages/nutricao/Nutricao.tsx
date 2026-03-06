@@ -19,7 +19,6 @@ function ordenarIngredientes(ingredientesData?: IIngrediente[]): IIngrediente[] 
 
 export function Nutricao() {
     const data: IReceita[] = useReceita().data || [];
-    console.log("data", data);
     const [isModalReceitaOpen, setIsModalReceitaOpen]= useState(false);
 
     const tiposRefeicaoData: ITipoRefeicao[] = useTiposRefeicao().data || [];

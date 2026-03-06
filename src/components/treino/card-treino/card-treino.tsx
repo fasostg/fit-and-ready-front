@@ -1,4 +1,4 @@
-import logo from '../../../assets/logo-text.png';
+import logo from '../../../assets/logo-treino.png';
 import "./card-treino.css";
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ButtonCircle } from '../../shared/button-circle/button-circle';

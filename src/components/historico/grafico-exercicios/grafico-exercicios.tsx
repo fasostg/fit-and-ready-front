@@ -27,7 +27,6 @@ export function GraficoExercicios({ dados, isLoading, periodo, setPeriodo }: Gra
 
     const [tipoExercicio, setTipoExercicio] = useState<string>(tiposExercicios ? tiposExercicios[0]?.nome || "" : "");
     const [dadosFiltrados, setDadosFiltrados] = useState<DadoGrafico[]>(dados.filter(dado => dado.nome === tipoExercicio));
-    console.log("dadosFiltrados:", dadosFiltrados);
     
     const handleTipoExercicioChange = (value: unknown) => {
         if (typeof value === "string") {

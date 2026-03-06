@@ -25,7 +25,6 @@ export function Historico() {
   const [periodoDadosExerciciosTreino, setPeriodoDadosExerciciosTreino] = useState<Periodo>("semana");
   const { data: dadosPorExercicioTreino = [], isPending: isLoadingExercicioTreino } = 
     useDadosExercicios(periodoDadosExerciciosTreino);
-  console.log("dadosPorExercicioTreino:", dadosPorExercicioTreino);
 
   return (
     <div className="flex flex-col justify-start items-start content-start m-20 ml-[15%] mr-[15%]">

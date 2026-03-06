@@ -1,6 +1,5 @@
 
 export function isValidCpf(cpf: string): boolean {
-    console.log(cpf)
     if (!cpf) return false;
 
     const apenasDigitos: string = cpf.replace(/\D/g, "");
